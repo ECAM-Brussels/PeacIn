@@ -1,3 +1,146 @@
 <section data-ng-controller="SurveysController">
 	<h2>Test de personnalité</h2>
+
+	<p>Pour chacune des questions, vous disposez d'un <b>quota de 20 points</b> que vous devez répartir entre les six propositions de la question. La proposition pour laquelle vous donnerez le plus de points correspond au <b>choix le plus représentatif</b> de votre personnalité. N'hésitez pas à prononcer les écarts entre les choix. Le test comporte un total de <b>10 questions</b>.</p>
+
+	<div class="col-md-12">
+		<form class="form-horizontal" data-ng-submit="submit()" novalidate>
+			<fieldset>
+				<legend>Q1 &mdash; Ce qui est important pour moi, c'est :</legend>
+				<div class="form-group">
+					<div class="controls">
+						<input type="number" name="q1a" min="0" max="20">Relever des défis, des challenges, me lancer dans des grandes affaires.<br/>
+						<input type="number" name="q1b" min="0" max="20">Beaucoup de liberté vis-à-vis des conventions et des contraintes.<br/>
+						<input type="number" name="q1c" min="0" max="20">Me sentir aimé/e, reconnu/e, compris/e, en tant que personne.<br/>
+						<input type="number" name="q1d" min="0" max="20">Organiser, planifier, gérer, structurer.<br/>
+						<input type="number" name="q1e" min="0" max="20">Être reconnu/e pour ma fidélité et mon dévouement.<br/>
+						<input type="number" name="q1f" min="0" max="20">Qu'on me donne des directives précises.
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Q2 &mdash; Pour moi, l'ami/e idéal/e :</legend>
+				<div class="form-group">
+					<div class="controls">
+						<input type="number" name="q2a" min="0" max="20">Aime faire des choses amusantes, spontanées et gaies.<br/>
+						<input type="number" name="q2b" min="0" max="20">Est toujours en pleine forme, aime les challenges.<br/>
+						<input type="number" name="q2c" min="0" max="20">Est chaleureux/se, prend soin de moi et s'intéresse à ce que je ressens.<br/>
+						<input type="number" name="q2d" min="0" max="20">Partage mes valeurs.<br/>
+						<input type="number" name="q2e" min="0" max="20">Respecte mon rythme, mon besoin de solitude, mon intimité.<br/>
+						<input type="number" name="q2f" min="0" max="20">Reconnait mes idées et le fait que je suis responsable et organisé/e.
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Q3 &mdash; Au quotidien, quand je suis fatigué/e, mal dans ma peau, sous stress :</legend>
+				<div class="form-group">
+					<div class="controls">
+						<input type="number" name="q3a" min="0" max="20">Je rouspète.<br/>
+						<input type="number" name="q3b" min="0" max="20">Je perds mes moyens, je fais des erreurs.<br/>
+						<input type="number" name="q3c" min="0" max="20">Je deviens pointilleux/se, je contrôle tout.<br/>
+						<input type="number" name="q3d" min="0" max="20">Je me tais, je m'isole.<br/>
+						<input type="number" name="q3e" min="0" max="20">Je fais tout pour arriver à mes fins.<br/>
+						<input type="number" name="q3f" min="0" max="20">Je fais des grands discours et je m'accroche à mes convictions.
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Q4 &mdash; J'aime :</legend>
+				<div class="form-group">
+					<div class="controls">
+						<input type="number" name="q4a" min="0" max="20">La logique, la précision, l'exactitude.<br/>
+						<input type="number" name="q4b" min="0" max="20">Qu'on respecte mon rythme de travail et mon jardin secret.<br/>
+						<input type="number" name="q4c" min="0" max="20">Exprimer ce que je ressens, ce qui me tient à coeur, et être chaleureux/se.<br/>
+						<input type="number" name="q4d" min="0" max="20">Vivre mes convictions, que l'on reconnaisse mes valeurs.<br/>
+						<input type="number" name="q4e" min="0" max="20">Faire parler de moi, prendre des risques.<br/>
+						<input type="number" name="q4f" min="0" max="20">Provoquer, bousculer les &laquo; routiniers &raquo;.
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Q5 &mdash; Mon bureau doit être :</legend>
+				<div class="form-group">
+					<div class="controls">
+						<input type="number" name="q5a" min="0" max="20">Un endroit où je puisse m'isoler, travailler, un coin tranquille.<br/>
+						<input type="number" name="q5b" min="0" max="20">Un endroit stimulant qui m'entraine à innover.<br/>
+						<input type="number" name="q5c" min="0" max="20">Un endroit &laquo; qui en jette &raquo; avec des moquettes épaisses et des meubles luxueux.<br/>
+						<input type="number" name="q5d" min="0" max="20">Un endroit fonctionnel qui manifeste, par des signes, mes valeurs.<br/>
+						<input type="number" name="q5e" min="0" max="20">Un endroit chaleureux et accueillant.<br/>
+						<input type="number" name="q5f" min="0" max="20">Un endroit organisé et rangé.
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Q6 &mdash; Quand je me trouve dans une soirée :</legend>
+				<div class="form-group">
+					<div class="controls">
+						<input type="number" name="q6a" min="0" max="20">Je cherche un groupe chaleureux où je me sens bien.<br/>
+						<input type="number" name="q6b" min="0" max="20">J'entre dans un dialogue pour parler de choses sérieuses.<br/>
+						<input type="number" name="q6c" min="0" max="20">Je reste dans mon coin, j'attends que ça passe, je suis ailleurs.<br/>
+						<input type="number" name="q6d" min="0" max="20">Je deviens vite le centre d'attraction, celui ou celle vers qui convergent les regards.<br/>
+						<input type="number" name="q6e" min="0" max="20">Je vais d'un groupe à l'autre.<br/>
+						<input type="number" name="q6f" min="0" max="20">Je rentre en relation pour partager mes convictions et mes valeurs.
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Q7 &mdash; On a tendance à penser de moi :</legend>
+				<div class="form-group">
+					<div class="controls">
+						<input type="number" name="q7a" min="0" max="20">Que je suis ambitieux/se, fonceur/se, réalisateur/trice.<br/>
+						<input type="number" name="q7b" min="0" max="20">Que je tiens beaucoup trop à mes convictions.<br/>
+						<input type="number" name="q7c" min="0" max="20">Que je m'oppose facilement et que je n'en fais qu'à ma tête.<br/>
+						<input type="number" name="q7d" min="0" max="20">Que je suis très ou trop porté sur le travail.<br/>
+						<input type="number" name="q7e" min="0" max="20">Que je ne dialogue pas facilement.<br/>
+						<input type="number" name="q7f" min="0" max="20">Que je suis très ou trop sensible.
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Q8 &mdash; Souvent :</legend>
+				<div class="form-group">
+					<div class="controls">
+						<input type="number" name="q8a" min="0" max="20">J'hésite à dire ce que je pense par crainte des réactions des autres.<br/>
+						<input type="number" name="q8b" min="0" max="20">Je fais plus que ma part de travail.<br/>
+						<input type="number" name="q8c" min="0" max="20">J'attends beaucoup des autres et de leurs performances.<br/>
+						<input type="number" name="q8d" min="0" max="20">J'aime être dans un endroit tranquille pour travailler.<br/>
+						<input type="number" name="q8e" min="0" max="20">La routine et les règles m'ennuient.<br/>
+						<input type="number" name="q8f" min="0" max="20">Je me dis que je peux vendre n'importe quoi à n'importe qui.
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Q9 &mdash; Lorsque j'ai des problèmes dans mon travail, j'ai tendance à :</legend>
+				<div class="form-group">
+					<div class="controls">
+						<input type="number" name="q9a" min="0" max="20">Me dire que je n'ai pas fait suffisamment pour les autres et à me culpabiliser.<br/>
+						<input type="number" name="q9b" min="0" max="20">Penser que je ne suis pas suffisament organisé/e et que je n'ai pas assez anticipé.<br/>
+						<input type="number" name="q9c" min="0" max="20">Être convaincu/e que les autres n'ont qu'à réfléchir et qu'ainsi ils comprendraient que c'est moi qui ai raison.<br/>
+						<input type="number" name="q9d" min="0" max="20">Me replier sur moi-même.<br/>
+						<input type="number" name="q9e" min="0" max="20">Ne pas accepter que les autres soient mécontents et avoir envie de les envoyer &laquo; paitre &raquo;.<br/>
+						<input type="number" name="q9f" min="0" max="20">Chercher si on n'essaie pas de me rouler.
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Q10 &mdash; Je préfère :</legend>
+				<div class="form-group">
+					<div class="controls">
+						<input type="number" name="q10a" min="0" max="20">L'intimité.<br/>
+						<input type="number" name="q10b" min="0" max="20">Les idées.<br/>
+						<input type="number" name="q10c" min="0" max="20">Les valeurs.<br/>
+						<input type="number" name="q10d" min="0" max="20">La fête.<br/>
+						<input type="number" name="q10e" min="0" max="20">Les sensations fortes.<br/>
+						<input type="number" name="q10f" min="0" max="20">Mon jardin secret.
+					</div>
+				</div>
+			</fieldset>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">Envoyer mes réponses</button>
+			</div>
+			<div data-ng-show="error" class="text-danger">
+				<strong data-ng-bind="error"></strong>
+			</div>
+		</form>
+	</div>
 </section>
