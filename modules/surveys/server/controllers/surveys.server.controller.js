@@ -12,7 +12,17 @@ var path = require('path'),
  * Submit a survey
  */
 exports.submit = function (req, res) {
-	res.send('OK');
+	var survey = new Survey(req.body);
+	survey.user = req.user;
+	survey.save(function(err) {
+		if (err) {
+			console.log(err);
+			return res.status(400).send({
+				message: 'Impossible de sauvegarder vos réponses à cette enquête.'
+			});
+		}
+		res.jsonp(survey);
+	});
 };
 
 /**

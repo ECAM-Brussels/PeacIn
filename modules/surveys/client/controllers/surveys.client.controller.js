@@ -1,10 +1,10 @@
 'use strict';
 
 // Surveys controller
-angular.module('surveys').controller('SurveysController', ['$scope', '$stateParams', '$location', 'Authentication', function ($scope, $stateParams, $location, Authentication) {
+angular.module('surveys').controller('SurveysController', ['$scope', '$stateParams', '$location', 'Authentication', 'Surveys', function ($scope, $stateParams, $location, Authentication, Surveys) {
 	$scope.authentication = Authentication;
 
-	$scope.submit = function() {
+	$scope.submit = function(survey) {
 		// Check scores for every question
 		$scope.error = {};
 		var valid = true;
@@ -22,7 +22,16 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 		}
 		// If data is valid, save to server
 		if (valid) {
-			// ...
+			var survey = new Surveys({
+				'id': survey,
+				'answer': JSON.stringify(this.answers),
+			});
+			// Redirect after save
+			survey.$save(function(response) {
+				console.log(response);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
 		}
 	};
 }]);
