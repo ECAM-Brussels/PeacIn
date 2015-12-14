@@ -166,7 +166,13 @@
 						</div>
 					</div>
 				</fieldset>
-				<div class="form-group">
+				<div data-ng-show="success" class="text-success">
+					<strong data-ng-bind="success"></strong>
+				</div>
+				<div data-ng-show="generror" class="text-danger">
+					<strong data-ng-bind="generror"></strong>
+				</div>
+				<div class="form-group" data-ng-show="! success">
 					<button type="submit" class="btn btn-primary">Envoyer mes réponses</button>
 				</div>
 			</form>

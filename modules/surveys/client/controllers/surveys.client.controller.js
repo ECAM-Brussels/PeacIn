@@ -23,14 +23,14 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 		// If data is valid, save to server
 		if (valid) {
 			var survey = new Surveys({
-				'surveyId': surveyId,
+				'id': surveyId,
 				'answer': JSON.stringify(this.answers),
 			});
 			// Redirect after save
 			survey.$save(function(response) {
-				console.log(response);
+				$scope.success = 'Vous réponses ont bien été enregistrées.';
 			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
+				$scope.generror = errorResponse.data.message;
 			});
 		}
 	};

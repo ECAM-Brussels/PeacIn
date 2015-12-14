@@ -16,6 +16,7 @@ exports.submit = function(req, res) {
 	survey.user = req.user;
 	survey.save(function(err) {
 		if (err) {
+			console.log(err);
 			return res.status(400).send({
 				message: 'Impossible de sauvegarder vos réponses à cette enquête.'
 			});
