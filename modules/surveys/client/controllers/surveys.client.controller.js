@@ -1,10 +1,10 @@
 'use strict';
 
 // Surveys controller
-angular.module('surveys').controller('SurveysController', ['$scope', '$stateParams', '$location', 'Authentication', 'Surveys', function ($scope, $stateParams, $location, Authentication, Surveys) {
+angular.module('surveys').controller('SurveysController', ['$scope', '$stateParams', '$location', '$http', 'Authentication', 'Surveys', function ($scope, $stateParams, $location, $http, Authentication, Surveys) {
 	$scope.authentication = Authentication;
 
-	$scope.submit = function(survey) {
+	$scope.submit = function(surveyId) {
 		// Check scores for every question
 		$scope.error = {};
 		var valid = true;
@@ -23,7 +23,7 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 		// If data is valid, save to server
 		if (valid) {
 			var survey = new Surveys({
-				'id': survey,
+				'surveyId': surveyId,
 				'answer': JSON.stringify(this.answers),
 			});
 			// Redirect after save
@@ -33,5 +33,12 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 				$scope.error = errorResponse.data.message;
 			});
 		}
+	};
+
+	$scope.findAnswer = function(surveyId) {
+		$scope.answer = null;
+		$http.get('/api/surveys?surveyId=' + surveyId).success(function(data, status, header, config) {
+			$scope.answer = data;
+		});
 	};
 }]);

@@ -11,12 +11,11 @@ var path = require('path'),
 /**
  * Submit a survey
  */
-exports.submit = function (req, res) {
+exports.submit = function(req, res) {
 	var survey = new Survey(req.body);
 	survey.user = req.user;
 	survey.save(function(err) {
 		if (err) {
-			console.log(err);
 			return res.status(400).send({
 				message: 'Impossible de sauvegarder vos réponses à cette enquête.'
 			});
@@ -28,21 +27,34 @@ exports.submit = function (req, res) {
 /**
  * Show the current survey
  */
-exports.read = function (req, res) {
+exports.read = function(req, res) {
 	res.json(req.survey);
+};
+
+/*
+ * Find answer to a survey
+ */
+exports.findAnswer = function(req, res) {
+	var surveyId = req.query.surveyId;
+	Survey.find({'id': surveyId, 'user': req.user}).exec(function(err, answers) {
+		if (err) {
+			return 'Impossible to find a survey';
+		}
+		res.jsonp(answers);
+	});
 };
 
 /**
  * Survey middleware
  */
-exports.surveyByID = function (req, res, next, id) {
+exports.surveyByID = function(req, res, next, id) {
 	if (! mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(400).send({
 			message: 'Survey is invalid'
 		});
 	}
 
-	Survey.findById(id).exec(function (err, survey) {
+	Survey.findById(id).exec(function(err, survey) {
 		if (err) {
 			return next(err);
 		}
