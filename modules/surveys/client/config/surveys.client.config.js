@@ -12,7 +12,7 @@ angular.module('surveys').run(['Menus', function (Menus) {
 
 	// Add the dropdown personality test
 	Menus.addSubMenuItem('topbar', 'surveys', {
-		title: 'Test de personnalité',
+		title: 'Likeship test',
 		state: 'surveys.personality'
 	});
 }]);
