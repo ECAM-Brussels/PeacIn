@@ -20,13 +20,17 @@ var GroupSchema = new Schema({
 		trim: true,
 		required: 'Name cannot be blank'
 	},
-	members: [{
-		type: Schema.ObjectId,
-		ref: 'User'
-	}],
+	members: {
+		type: [{
+			type: Schema.ObjectId,
+			ref: 'User'
+		}],
+		default: []
+	},
 	supervisor: {
 		type: Schema.ObjectId,
-		ref: 'User'
+		ref: 'User',
+		default: null
 	}
 });
 

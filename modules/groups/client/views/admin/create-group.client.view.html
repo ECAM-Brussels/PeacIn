@@ -1,0 +1,23 @@
+<section data-ng-controller="GroupsController">
+	<h2>Créer un groupe</h2>
+
+	<div class="col-md-12">
+		<form name="groupForm" class="form-horizontal" data-ng-submit="create(groupForm.$valid)" novalidate>
+			<fieldset>
+				<div class="form-group" show-errors>
+					<label for="name">Nom</label>
+					<input name="name" type="text" data-ng-model="name" id="name" class="form-control" placeholder="Nom" required>
+					<div data-ng-messages="groupForm.name.$error" role="alert">
+						<p class="help-block error-text" data-ng-message="required">Vous devez spécifier un nom au groupe.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-default" value="Créer">
+				</div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</section>
