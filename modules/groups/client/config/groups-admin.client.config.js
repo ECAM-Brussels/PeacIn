@@ -5,7 +5,7 @@ angular.module('groups').run(['Menus', function (Menus) {
 	// Add the dropdown manage groups
 	Menus.addSubMenuItem('topbar', 'admin', {
 		title: 'Groupes',
-		state: 'admin.groups',
+		state: 'admin.groups.list',
 		roles: ['admin']
 	});
 }]);
