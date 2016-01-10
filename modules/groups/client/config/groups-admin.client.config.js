@@ -6,6 +6,6 @@ angular.module('groups').run(['Menus', function (Menus) {
 	Menus.addSubMenuItem('topbar', 'admin', {
 		title: 'Groupes',
 		state: 'admin.groups.list',
-		roles: ['admin']
+		roles: ['admin', 'teacher']
 	});
 }]);

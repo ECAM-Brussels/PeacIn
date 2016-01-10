@@ -5,6 +5,6 @@ angular.module('users.admin').run(['Menus', function (Menus) {
 	Menus.addSubMenuItem('topbar', 'admin', {
 		title: 'Utilisateurs',
 		state: 'admin.users',
-		roles: ['admin']
+		roles: ['admin', 'teacher']
 	});
 }]);

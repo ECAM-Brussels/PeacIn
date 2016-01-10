@@ -12,7 +12,7 @@ angular.module('groups').config(['$stateProvider', function ($stateProvider) {
 		url: '/:groupId',
 		templateUrl: 'modules/groups/client/views/view-group.client.view.html',
 		data: {
-			roles: ['admin']
+			roles: ['admin', 'teacher']
 		}
 	});
 }]);

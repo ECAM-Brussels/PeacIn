@@ -5,6 +5,6 @@ angular.module('core.admin').run(['Menus', function (Menus) {
 		title: 'Gestion',
 		state: 'admin',
 		type: 'dropdown',
-		roles: ['admin']
+		roles: ['admin', 'teacher']
 	});
 }]);

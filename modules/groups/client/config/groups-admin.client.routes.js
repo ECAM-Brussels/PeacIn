@@ -13,7 +13,7 @@ angular.module('groups').config(['$stateProvider', function ($stateProvider) {
 		templateUrl: 'modules/groups/client/views/admin/list-groups.client.view.html',
 		controller: 'GroupListController',
 		data: {
-			roles: ['admin']
+			roles: ['admin', 'teacher']
 		}
 	})
 	.state('admin.groups.create', {
