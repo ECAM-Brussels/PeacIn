@@ -10,4 +10,11 @@ module.exports = function (app) {
 	app.route('/api/groups')
 		.get(groups.list)
 		.post(groups.create);
+
+	// Single article routes
+	app.route('/api/groups/:groupId')
+		.get(groups.read);
+
+	// Finish by binding the group middleware
+	app.param('groupId', groups.groupByID);
 };

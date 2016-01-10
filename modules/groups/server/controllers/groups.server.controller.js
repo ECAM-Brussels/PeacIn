@@ -24,6 +24,13 @@ exports.create = function (req, res) {
 };
 
 /**
+ * Show the current group
+ */
+exports.read = function (req, res) {
+	res.json(req.group);
+};
+
+/**
  * List of groups
  */
 exports.list = function (req, res) {
@@ -34,5 +41,29 @@ exports.list = function (req, res) {
 			});
 		}
 		res.json(groups);
+	});
+};
+
+/**
+ * Group middleware
+ */
+exports.groupByID = function (req, res, next, id) {
+	if (! mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(400).send({
+			message: 'Group is invalid.'
+		});
+	}
+
+	Group.findById(id, 'name supervisor members').exec(function (err, group) {
+		if (err) {
+			return next(err);
+		}
+		if (! group) {
+			return res.status(404).send({
+				message: 'No group with that identifier has been found.'
+			});
+		}
+	    req.group = group;
+		next();
 	});
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('groups').controller('GroupsController', ['$scope', '$location', 'Authentication', 'Groups', function ($scope, $location, Authentication, Groups) {
+angular.module('groups').controller('GroupsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Groups', function ($scope, $stateParams, $location, Authentication, Groups) {
 	$scope.authentication = Authentication;
 
 	// Create a new group
@@ -25,6 +25,13 @@ angular.module('groups').controller('GroupsController', ['$scope', '$location', 
 			$scope.name = '';
 		}, function (errorResponse) {
 			$scope.error = errorResponse.data.message;
+		});
+	};
+
+	// Find existing group
+	$scope.findOne = function() {
+		$scope.group = Groups.get({
+			groupId: $stateParams.groupId
 		});
 	};
 }]);

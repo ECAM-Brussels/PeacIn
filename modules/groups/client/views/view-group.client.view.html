@@ -1,0 +1,28 @@
+<section data-ng-controller="GroupsController" data-ng-init="findOne()">
+	<h2 data-ng-bind="group.name"></h2>
+
+	<div class="row">
+		<hr />
+		<div class="row">
+			<div class="col-md-3"><strong>Nom</strong></div>
+			<div class="col-md-6" data-ng-bind="group.name"></div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-md-3"><strong>Superviseur</strong></div>
+			<div class="col-md-6" data-ng-if="group.supervisor !== null" data-ng-bind="group.supervisor"></div>
+			<div class="col-md-6" data-ng-if="group.supervisor === null">Aucun</div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-md-3"><strong>Membres</strong></div>
+			<div class="col-md-6" data-ng-if="group.members.length > 0">
+				<ul data-ng-repeat="member in group.members">
+					<li data-ng-bind="member"></li>
+				</ul>
+			</div>
+			<div class="col-md-6" data-ng-if="group.members.length === 0">Aucun</div>
+		</div>
+		<hr />
+	</div>
+</section>
