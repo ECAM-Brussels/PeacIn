@@ -10,25 +10,37 @@ var mongoose = require('mongoose'),
  * Survey Schema
  */
 var SurveySchema = new Schema({
-	created: {
-		type: Date,
-		default: Date.now
-	},
 	id: {
 		type: String,
 		default: '',
 		trim: true,
-		required: 'Id cannot be blank'
+		unique: true,
+		required: 'Id cannot be blank.'
 	},
-	answer: {
-		type: String,
-		default: '',
-		trim: true,
-		required: 'Answer cannot be blank'
+	end: {
+		type: Date,
+		default: null
 	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
+	answers: {
+		type: [new Schema({
+			user: {
+				type: Schema.ObjectId,
+				ref: 'User'
+			},
+			submitted: {
+				type: Date,
+				default: Date.now
+			},
+			answer: {
+				type: String,
+				default: '',
+				trim: true
+			}
+		}, {
+			id: false,
+			_id: false
+		})],
+		default: []
 	}
 });
 
