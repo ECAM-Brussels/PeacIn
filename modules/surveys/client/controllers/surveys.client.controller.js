@@ -1,7 +1,7 @@
 'use strict';
 
 // Surveys controller
-angular.module('surveys').controller('SurveysController', ['$scope', '$stateParams', '$location', '$http', 'Authentication', 'Surveys', function ($scope, $stateParams, $location, $http, Authentication, Surveys) {
+angular.module('surveys').controller('SurveysController', ['$scope', '$stateParams', '$http', 'Authentication', 'Surveys', function ($scope, $stateParams, $http, Authentication, Surveys) {
 	$scope.authentication = Authentication;
 
 	$scope.submit = function(surveyId) {
@@ -35,10 +35,9 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 		}
 	};
 
-	$scope.findAnswer = function(surveyId) {
-		$scope.answer = null;
-		$http.get('/api/surveys?surveyId=' + surveyId).success(function(data, status, header, config) {
-			$scope.answer = data;
+	$scope.findOne = function() {
+		$scope.survey = Surveys.get({
+			surveyId: $stateParams.surveyId
 		});
 	};
 }]);

@@ -9,8 +9,8 @@ angular.module('surveys').config(['$stateProvider', function ($stateProvider) {
 		url: '/surveys',
 		template: '<ui-view/>'
 	})
-	.state('surveys.personality', {
-		url: '/personality',
+	.state('surveys.view', {
+		url: '/:surveyId',
 		templateUrl: 'modules/surveys/client/views/survey-personality.client.view.html'
 	});
 }]);

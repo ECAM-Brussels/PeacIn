@@ -32,36 +32,17 @@ exports.read = function(req, res) {
 	res.json(req.survey);
 };
 
-/*
- * Find answer to a survey
- */
-exports.findAnswer = function(req, res) {
-	var surveyId = req.query.surveyId;
-	Survey.find({'id': surveyId, 'user': req.user}).exec(function(err, answers) {
-		if (err) {
-			return 'Impossible to find a survey';
-		}
-		res.jsonp(answers);
-	});
-};
-
 /**
  * Survey middleware
  */
 exports.surveyByID = function(req, res, next, id) {
-	if (! mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(400).send({
-			message: 'Survey is invalid'
-		});
-	}
-
-	Survey.findById(id).exec(function(err, survey) {
+	Survey.findOne({id: id}, 'answers end').exec(function(err, survey) {
 		if (err) {
 			return next(err);
 		}
 		if (! survey) {
 			return res.status(404).send({
-				message: 'No survey with that identifier has been found'
+				message: 'No survey with that identifier has been found.'
 			});
 		}
 		req.survey = survey;

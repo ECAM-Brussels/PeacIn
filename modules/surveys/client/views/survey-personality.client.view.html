@@ -1,184 +1,212 @@
-<section data-ng-controller="SurveysController" data-ng-init="findAnswer('personality')">
-	<h2>Likeship test</h2>
+<section data-ng-controller="SurveysController" data-ng-init="findOne()">
+	<div data-ng-if="survey.$resolved && survey._id !== undefined">
+		<ol class="breadcrumb">
+			<li><a data-ng-href="/surveys">Enquêtes</a></li>
+			<li class="active"><a data-ng-href="/surveys/personality">Likeship test</a></li>
+		</ol>
 
-	<div data-ng-show="answer !== null && answer.length === 0">
-		<p>Pour chacune des questions, vous disposez d'un <b>quota de 20 points</b> que vous devez répartir entre les six propositions de la question. La proposition pour laquelle vous donnerez le plus de points correspond au <b>choix le plus représentatif</b> de votre personnalité. N'hésitez pas à prononcer les écarts entre les choix. Le test comporte un total de <b>10 questions</b>.</p>
+		<h2>Likeship test</h2>
 
-		<div class="col-md-12">
-			<form class="form-horizontal" data-ng-submit="submit('personality')" novalidate>
-				<fieldset>
-					<legend>Q1 &mdash; Ce qui est important pour moi, c'est :</legend>
-					<div data-ng-show="error[0]" class="text-danger">
-						<strong data-ng-bind="error[0]"></strong>
-					</div>
-					<div class="form-group">
-						<div class="controls">
-							<input type="number" id="q1a" data-ng-model="answers[0][0]" min="0" max="20" placeholder="0">Relever des défis, des challenges, me lancer dans des grandes affaires.<br/>
-							<input type="number" id="q1b" data-ng-model="answers[0][1]" min="0" max="20" placeholder="0">Beaucoup de liberté vis-à-vis des conventions et des contraintes.<br/>
-							<input type="number" id="q1c" data-ng-model="answers[0][2]" min="0" max="20" placeholder="0">Me sentir aimé/e, reconnu/e, compris/e, en tant que personne.<br/>
-							<input type="number" id="q1d" data-ng-model="answers[0][3]" min="0" max="20" placeholder="0">Organiser, planifier, gérer, structurer.<br/>
-							<input type="number" id="q1e" data-ng-model="answers[0][4]" min="0" max="20" placeholder="0">Être reconnu/e pour ma fidélité et mon dévouement.<br/>
-							<input type="number" id="q1f" data-ng-model="answers[0][5]" min="0" max="20" placeholder="0">Qu'on me donne des directives précises.
+		<div class="row">
+			<div class="col-md-9">
+				<div data-ng-show="survey.$resolved">
+					<p>Pour chacune des dix questions, vous disposez d'un <b>quota de 20 points</b> que vous devez répartir entre les six propositions de la question. La proposition pour laquelle vous donnerez le plus de points correspond au <b>choix le plus représentatif</b> de votre personnalité. N'hésitez pas à prononcer les écarts entre les choix. Le test comporte un total de <b>10 questions</b>.</p>
+
+					<form class="form-horizontal" data-ng-submit="submit('personality')" novalidate>
+						<fieldset>
+							<legend>Q1 &mdash; Ce qui est important pour moi, c'est :</legend>
+							<div data-ng-show="error[0]" class="text-danger">
+								<strong data-ng-bind="error[0]"></strong>
+							</div>
+							<div class="form-group">
+								<div class="controls">
+									<input type="number" id="q1a" data-ng-model="answers[0][0]" min="0" max="20" placeholder="0">Relever des défis, des challenges, me lancer dans des grandes affaires.<br/>
+									<input type="number" id="q1b" data-ng-model="answers[0][1]" min="0" max="20" placeholder="0">Beaucoup de liberté vis-à-vis des conventions et des contraintes.<br/>
+									<input type="number" id="q1c" data-ng-model="answers[0][2]" min="0" max="20" placeholder="0">Me sentir aimé/e, reconnu/e, compris/e, en tant que personne.<br/>
+									<input type="number" id="q1d" data-ng-model="answers[0][3]" min="0" max="20" placeholder="0">Organiser, planifier, gérer, structurer.<br/>
+									<input type="number" id="q1e" data-ng-model="answers[0][4]" min="0" max="20" placeholder="0">Être reconnu/e pour ma fidélité et mon dévouement.<br/>
+									<input type="number" id="q1f" data-ng-model="answers[0][5]" min="0" max="20" placeholder="0">Qu'on me donne des directives précises.
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Q2 &mdash; Pour moi, l'ami/e idéal/e :</legend>
+							<div data-ng-show="error[1]" class="text-danger">
+								<strong data-ng-bind="error[1]"></strong>
+							</div>
+							<div class="form-group">
+								<div class="controls">
+									<input type="number" id="q2a" data-ng-model="answers[1][0]" min="0" max="20" placeholder="0">Aime faire des choses amusantes, spontanées et gaies.<br/>
+									<input type="number" id="q2b" data-ng-model="answers[1][1]" min="0" max="20" placeholder="0">Est toujours en pleine forme, aime les challenges.<br/>
+									<input type="number" id="q2c" data-ng-model="answers[1][2]" min="0" max="20" placeholder="0">Est chaleureux/se, prend soin de moi et s'intéresse à ce que je ressens.<br/>
+									<input type="number" id="q2d" data-ng-model="answers[1][3]" min="0" max="20" placeholder="0">Partage mes valeurs.<br/>
+									<input type="number" id="q2e" data-ng-model="answers[1][4]" min="0" max="20" placeholder="0">Respecte mon rythme, mon besoin de solitude, mon intimité.<br/>
+									<input type="number" id="q2f" data-ng-model="answers[1][5]" min="0" max="20" placeholder="0">Reconnait mes idées et le fait que je suis responsable et organisé/e.
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Q3 &mdash; Au quotidien, quand je suis fatigué/e, mal dans ma peau, sous stress :</legend>
+							<div data-ng-show="error[2]" class="text-danger">
+								<strong data-ng-bind="error[2]"></strong>
+							</div>
+							<div class="form-group">
+								<div class="controls">
+									<input type="number" id="q3a" data-ng-model="answers[2][0]" min="0" max="20" placeholder="0">Je rouspète.<br/>
+									<input type="number" id="q3b" data-ng-model="answers[2][1]" min="0" max="20" placeholder="0">Je perds mes moyens, je fais des erreurs.<br/>
+									<input type="number" id="q3c" data-ng-model="answers[2][2]" min="0" max="20" placeholder="0">Je deviens pointilleux/se, je contrôle tout.<br/>
+									<input type="number" id="q3d" data-ng-model="answers[2][3]" min="0" max="20" placeholder="0">Je me tais, je m'isole.<br/>
+									<input type="number" id="q3e" data-ng-model="answers[2][4]" min="0" max="20" placeholder="0">Je fais tout pour arriver à mes fins.<br/>
+									<input type="number" id="q3f" data-ng-model="answers[2][5]" min="0" max="20" placeholder="0">Je fais des grands discours et je m'accroche à mes convictions.
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Q4 &mdash; J'aime :</legend>
+							<div data-ng-show="error[3]" class="text-danger">
+								<strong data-ng-bind="error[3]"></strong>
+							</div>
+							<div class="form-group">
+								<div class="controls">
+									<input type="number" id="q4a" data-ng-model="answers[3][0]" min="0" max="20" placeholder="0">La logique, la précision, l'exactitude.<br/>
+									<input type="number" id="q4b" data-ng-model="answers[3][1]" min="0" max="20" placeholder="0">Qu'on respecte mon rythme de travail et mon jardin secret.<br/>
+									<input type="number" id="q4c" data-ng-model="answers[3][2]" min="0" max="20" placeholder="0">Exprimer ce que je ressens, ce qui me tient à coeur, et être chaleureux/se.<br/>
+									<input type="number" id="q4d" data-ng-model="answers[3][3]" min="0" max="20" placeholder="0">Vivre mes convictions, que l'on reconnaisse mes valeurs.<br/>
+									<input type="number" id="q4e" data-ng-model="answers[3][4]" min="0" max="20" placeholder="0">Faire parler de moi, prendre des risques.<br/>
+									<input type="number" id="q4f" data-ng-model="answers[3][5]" min="0" max="20" placeholder="0">Provoquer, bousculer les &laquo; routiniers &raquo;.
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Q5 &mdash; Mon bureau doit être :</legend>
+							<div data-ng-show="error[4]" class="text-danger">
+								<strong data-ng-bind="error[4]"></strong>
+							</div>
+							<div class="form-group">
+								<div class="controls">
+									<input type="number" id="q5a" data-ng-model="answers[4][0]" min="0" max="20" placeholder="0">Un endroit où je puisse m'isoler, travailler, un coin tranquille.<br/>
+									<input type="number" id="q5b" data-ng-model="answers[4][1]" min="0" max="20" placeholder="0">Un endroit stimulant qui m'entraine à innover.<br/>
+									<input type="number" id="q5c" data-ng-model="answers[4][2]" min="0" max="20" placeholder="0">Un endroit &laquo; qui en jette &raquo; avec des moquettes épaisses et des meubles luxueux.<br/>
+									<input type="number" id="q5d" data-ng-model="answers[4][3]" min="0" max="20" placeholder="0">Un endroit fonctionnel qui manifeste, par des signes, mes valeurs.<br/>
+									<input type="number" id="q5e" data-ng-model="answers[4][4]" min="0" max="20" placeholder="0">Un endroit chaleureux et accueillant.<br/>
+									<input type="number" id="q5f" data-ng-model="answers[4][5]" min="0" max="20" placeholder="0">Un endroit organisé et rangé.
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Q6 &mdash; Quand je me trouve dans une soirée :</legend>
+							<div data-ng-show="error[5]" class="text-danger">
+								<strong data-ng-bind="error[5]"></strong>
+							</div>
+							<div class="form-group">
+								<div class="controls">
+									<input type="number" id="q6a" data-ng-model="answers[5][0]" min="0" max="20" placeholder="0">Je cherche un groupe chaleureux où je me sens bien.<br/>
+									<input type="number" id="q6b" data-ng-model="answers[5][1]" min="0" max="20" placeholder="0">J'entre dans un dialogue pour parler de choses sérieuses.<br/>
+									<input type="number" id="q6c" data-ng-model="answers[5][2]" min="0" max="20" placeholder="0">Je reste dans mon coin, j'attends que ça passe, je suis ailleurs.<br/>
+									<input type="number" id="q6d" data-ng-model="answers[5][3]" min="0" max="20" placeholder="0">Je deviens vite le centre d'attraction, celui ou celle vers qui convergent les regards.<br/>
+									<input type="number" id="q6e" data-ng-model="answers[5][4]" min="0" max="20" placeholder="0">Je vais d'un groupe à l'autre.<br/>
+									<input type="number" id="q6f" data-ng-model="answers[5][5]" min="0" max="20" placeholder="0">Je rentre en relation pour partager mes convictions et mes valeurs.
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Q7 &mdash; On a tendance à penser de moi :</legend>
+							<div data-ng-show="error[6]" class="text-danger">
+								<strong data-ng-bind="error[6]"></strong>
+							</div>
+							<div class="form-group">
+								<div class="controls">
+									<input type="number" id="q7a" data-ng-model="answers[6][0]" min="0" max="20" placeholder="0">Que je suis ambitieux/se, fonceur/se, réalisateur/trice.<br/>
+									<input type="number" id="q7b" data-ng-model="answers[6][1]" min="0" max="20" placeholder="0">Que je tiens beaucoup trop à mes convictions.<br/>
+									<input type="number" id="q7c" data-ng-model="answers[6][2]" min="0" max="20" placeholder="0">Que je m'oppose facilement et que je n'en fais qu'à ma tête.<br/>
+									<input type="number" id="q7d" data-ng-model="answers[6][3]" min="0" max="20" placeholder="0">Que je suis très ou trop porté sur le travail.<br/>
+									<input type="number" id="q7e" data-ng-model="answers[6][4]" min="0" max="20" placeholder="0">Que je ne dialogue pas facilement.<br/>
+									<input type="number" id="q7f" data-ng-model="answers[6][5]" min="0" max="20" placeholder="0">Que je suis très ou trop sensible.
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Q8 &mdash; Souvent :</legend>
+							<div data-ng-show="error[7]" class="text-danger">
+								<strong data-ng-bind="error[7]"></strong>
+							</div>
+							<div class="form-group">
+								<div class="controls">
+									<input type="number" id="q8a" data-ng-model="answers[7][0]" min="0" max="20" placeholder="0">J'hésite à dire ce que je pense par crainte des réactions des autres.<br/>
+									<input type="number" id="q8b" data-ng-model="answers[7][1]" min="0" max="20" placeholder="0">Je fais plus que ma part de travail.<br/>
+									<input type="number" id="q8c" data-ng-model="answers[7][2]" min="0" max="20" placeholder="0">J'attends beaucoup des autres et de leurs performances.<br/>
+									<input type="number" id="q8d" data-ng-model="answers[7][3]" min="0" max="20" placeholder="0">J'aime être dans un endroit tranquille pour travailler.<br/>
+									<input type="number" id="q8e" data-ng-model="answers[7][4]" min="0" max="20" placeholder="0">La routine et les règles m'ennuient.<br/>
+									<input type="number" id="q8f" data-ng-model="answers[7][5]" min="0" max="20" placeholder="0">Je me dis que je peux vendre n'importe quoi à n'importe qui.
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Q9 &mdash; Lorsque j'ai des problèmes dans mon travail, j'ai tendance à :</legend>
+							<div data-ng-show="error[8]" class="text-danger">
+								<strong data-ng-bind="error[8]"></strong>
+							</div>
+							<div class="form-group">
+								<div class="controls">
+									<input type="number" id="q9a" data-ng-model="answers[8][0]" min="0" max="20" placeholder="0">Me dire que je n'ai pas fait suffisamment pour les autres et à me culpabiliser.<br/>
+									<input type="number" id="q9b" data-ng-model="answers[8][1]" min="0" max="20" placeholder="0">Penser que je ne suis pas suffisament organisé/e et que je n'ai pas assez anticipé.<br/>
+									<input type="number" id="q9c" data-ng-model="answers[8][2]" min="0" max="20" placeholder="0">Être convaincu/e que les autres n'ont qu'à réfléchir et qu'ainsi ils comprendraient que c'est moi qui ai raison.<br/>
+									<input type="number" id="q9d" data-ng-model="answers[8][3]" min="0" max="20" placeholder="0">Me replier sur moi-même.<br/>
+									<input type="number" id="q9e" data-ng-model="answers[8][4]" min="0" max="20" placeholder="0">Ne pas accepter que les autres soient mécontents et avoir envie de les envoyer &laquo; paitre &raquo;.<br/>
+									<input type="number" id="q9f" data-ng-model="answers[8][5]" min="0" max="20" placeholder="0">Chercher si on n'essaie pas de me rouler.
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Q10 &mdash; Je préfère :</legend>
+							<div data-ng-show="error[9]" class="text-danger">
+								<strong data-ng-bind="error[9]"></strong>
+							</div>
+							<div class="form-group">
+								<div class="controls">
+									<input type="number" id="q10a" data-ng-model="answers[9][0]" min="0" max="20" placeholder="0">L'intimité.<br/>
+									<input type="number" id="q10b" data-ng-model="answers[9][1]" min="0" max="20" placeholder="0">Les idées.<br/>
+									<input type="number" id="q10c" data-ng-model="answers[9][2]" min="0" max="20" placeholder="0">Les valeurs.<br/>
+									<input type="number" id="q10d" data-ng-model="answers[9][3]" min="0" max="20" placeholder="0">La fête.<br/>
+									<input type="number" id="q10e" data-ng-model="answers[9][4]" min="0" max="20" placeholder="0">Les sensations fortes.<br/>
+									<input type="number" id="q10f" data-ng-model="answers[9][5]" min="0" max="20" placeholder="0">Mon jardin secret.
+								</div>
+							</div>
+						</fieldset>
+						<div data-ng-show="success" class="text-success">
+							<strong data-ng-bind="success"></strong>
 						</div>
-					</div>
-				</fieldset>
-				<fieldset>
-					<legend>Q2 &mdash; Pour moi, l'ami/e idéal/e :</legend>
-					<div data-ng-show="error[1]" class="text-danger">
-						<strong data-ng-bind="error[1]"></strong>
-					</div>
-					<div class="form-group">
-						<div class="controls">
-							<input type="number" id="q2a" data-ng-model="answers[1][0]" min="0" max="20" placeholder="0">Aime faire des choses amusantes, spontanées et gaies.<br/>
-							<input type="number" id="q2b" data-ng-model="answers[1][1]" min="0" max="20" placeholder="0">Est toujours en pleine forme, aime les challenges.<br/>
-							<input type="number" id="q2c" data-ng-model="answers[1][2]" min="0" max="20" placeholder="0">Est chaleureux/se, prend soin de moi et s'intéresse à ce que je ressens.<br/>
-							<input type="number" id="q2d" data-ng-model="answers[1][3]" min="0" max="20" placeholder="0">Partage mes valeurs.<br/>
-							<input type="number" id="q2e" data-ng-model="answers[1][4]" min="0" max="20" placeholder="0">Respecte mon rythme, mon besoin de solitude, mon intimité.<br/>
-							<input type="number" id="q2f" data-ng-model="answers[1][5]" min="0" max="20" placeholder="0">Reconnait mes idées et le fait que je suis responsable et organisé/e.
+						<div data-ng-show="generror" class="text-danger">
+							<strong data-ng-bind="generror"></strong>
 						</div>
-					</div>
-				</fieldset>
-				<fieldset>
-					<legend>Q3 &mdash; Au quotidien, quand je suis fatigué/e, mal dans ma peau, sous stress :</legend>
-					<div data-ng-show="error[2]" class="text-danger">
-						<strong data-ng-bind="error[2]"></strong>
-					</div>
-					<div class="form-group">
-						<div class="controls">
-							<input type="number" id="q3a" data-ng-model="answers[2][0]" min="0" max="20" placeholder="0">Je rouspète.<br/>
-							<input type="number" id="q3b" data-ng-model="answers[2][1]" min="0" max="20" placeholder="0">Je perds mes moyens, je fais des erreurs.<br/>
-							<input type="number" id="q3c" data-ng-model="answers[2][2]" min="0" max="20" placeholder="0">Je deviens pointilleux/se, je contrôle tout.<br/>
-							<input type="number" id="q3d" data-ng-model="answers[2][3]" min="0" max="20" placeholder="0">Je me tais, je m'isole.<br/>
-							<input type="number" id="q3e" data-ng-model="answers[2][4]" min="0" max="20" placeholder="0">Je fais tout pour arriver à mes fins.<br/>
-							<input type="number" id="q3f" data-ng-model="answers[2][5]" min="0" max="20" placeholder="0">Je fais des grands discours et je m'accroche à mes convictions.
+						<div class="form-group" data-ng-show="! success">
+							<button type="submit" class="btn btn-primary">Envoyer mes réponses</button>
 						</div>
-					</div>
-				</fieldset>
-				<fieldset>
-					<legend>Q4 &mdash; J'aime :</legend>
-					<div data-ng-show="error[3]" class="text-danger">
-						<strong data-ng-bind="error[3]"></strong>
-					</div>
-					<div class="form-group">
-						<div class="controls">
-							<input type="number" id="q4a" data-ng-model="answers[3][0]" min="0" max="20" placeholder="0">La logique, la précision, l'exactitude.<br/>
-							<input type="number" id="q4b" data-ng-model="answers[3][1]" min="0" max="20" placeholder="0">Qu'on respecte mon rythme de travail et mon jardin secret.<br/>
-							<input type="number" id="q4c" data-ng-model="answers[3][2]" min="0" max="20" placeholder="0">Exprimer ce que je ressens, ce qui me tient à coeur, et être chaleureux/se.<br/>
-							<input type="number" id="q4d" data-ng-model="answers[3][3]" min="0" max="20" placeholder="0">Vivre mes convictions, que l'on reconnaisse mes valeurs.<br/>
-							<input type="number" id="q4e" data-ng-model="answers[3][4]" min="0" max="20" placeholder="0">Faire parler de moi, prendre des risques.<br/>
-							<input type="number" id="q4f" data-ng-model="answers[3][5]" min="0" max="20" placeholder="0">Provoquer, bousculer les &laquo; routiniers &raquo;.
-						</div>
-					</div>
-				</fieldset>
-				<fieldset>
-					<legend>Q5 &mdash; Mon bureau doit être :</legend>
-					<div data-ng-show="error[4]" class="text-danger">
-						<strong data-ng-bind="error[4]"></strong>
-					</div>
-					<div class="form-group">
-						<div class="controls">
-							<input type="number" id="q5a" data-ng-model="answers[4][0]" min="0" max="20" placeholder="0">Un endroit où je puisse m'isoler, travailler, un coin tranquille.<br/>
-							<input type="number" id="q5b" data-ng-model="answers[4][1]" min="0" max="20" placeholder="0">Un endroit stimulant qui m'entraine à innover.<br/>
-							<input type="number" id="q5c" data-ng-model="answers[4][2]" min="0" max="20" placeholder="0">Un endroit &laquo; qui en jette &raquo; avec des moquettes épaisses et des meubles luxueux.<br/>
-							<input type="number" id="q5d" data-ng-model="answers[4][3]" min="0" max="20" placeholder="0">Un endroit fonctionnel qui manifeste, par des signes, mes valeurs.<br/>
-							<input type="number" id="q5e" data-ng-model="answers[4][4]" min="0" max="20" placeholder="0">Un endroit chaleureux et accueillant.<br/>
-							<input type="number" id="q5f" data-ng-model="answers[4][5]" min="0" max="20" placeholder="0">Un endroit organisé et rangé.
-						</div>
-					</div>
-				</fieldset>
-				<fieldset>
-					<legend>Q6 &mdash; Quand je me trouve dans une soirée :</legend>
-					<div data-ng-show="error[5]" class="text-danger">
-						<strong data-ng-bind="error[5]"></strong>
-					</div>
-					<div class="form-group">
-						<div class="controls">
-							<input type="number" id="q6a" data-ng-model="answers[5][0]" min="0" max="20" placeholder="0">Je cherche un groupe chaleureux où je me sens bien.<br/>
-							<input type="number" id="q6b" data-ng-model="answers[5][1]" min="0" max="20" placeholder="0">J'entre dans un dialogue pour parler de choses sérieuses.<br/>
-							<input type="number" id="q6c" data-ng-model="answers[5][2]" min="0" max="20" placeholder="0">Je reste dans mon coin, j'attends que ça passe, je suis ailleurs.<br/>
-							<input type="number" id="q6d" data-ng-model="answers[5][3]" min="0" max="20" placeholder="0">Je deviens vite le centre d'attraction, celui ou celle vers qui convergent les regards.<br/>
-							<input type="number" id="q6e" data-ng-model="answers[5][4]" min="0" max="20" placeholder="0">Je vais d'un groupe à l'autre.<br/>
-							<input type="number" id="q6f" data-ng-model="answers[5][5]" min="0" max="20" placeholder="0">Je rentre en relation pour partager mes convictions et mes valeurs.
-						</div>
-					</div>
-				</fieldset>
-				<fieldset>
-					<legend>Q7 &mdash; On a tendance à penser de moi :</legend>
-					<div data-ng-show="error[6]" class="text-danger">
-						<strong data-ng-bind="error[6]"></strong>
-					</div>
-					<div class="form-group">
-						<div class="controls">
-							<input type="number" id="q7a" data-ng-model="answers[6][0]" min="0" max="20" placeholder="0">Que je suis ambitieux/se, fonceur/se, réalisateur/trice.<br/>
-							<input type="number" id="q7b" data-ng-model="answers[6][1]" min="0" max="20" placeholder="0">Que je tiens beaucoup trop à mes convictions.<br/>
-							<input type="number" id="q7c" data-ng-model="answers[6][2]" min="0" max="20" placeholder="0">Que je m'oppose facilement et que je n'en fais qu'à ma tête.<br/>
-							<input type="number" id="q7d" data-ng-model="answers[6][3]" min="0" max="20" placeholder="0">Que je suis très ou trop porté sur le travail.<br/>
-							<input type="number" id="q7e" data-ng-model="answers[6][4]" min="0" max="20" placeholder="0">Que je ne dialogue pas facilement.<br/>
-							<input type="number" id="q7f" data-ng-model="answers[6][5]" min="0" max="20" placeholder="0">Que je suis très ou trop sensible.
-						</div>
-					</div>
-				</fieldset>
-				<fieldset>
-					<legend>Q8 &mdash; Souvent :</legend>
-					<div data-ng-show="error[7]" class="text-danger">
-						<strong data-ng-bind="error[7]"></strong>
-					</div>
-					<div class="form-group">
-						<div class="controls">
-							<input type="number" id="q8a" data-ng-model="answers[7][0]" min="0" max="20" placeholder="0">J'hésite à dire ce que je pense par crainte des réactions des autres.<br/>
-							<input type="number" id="q8b" data-ng-model="answers[7][1]" min="0" max="20" placeholder="0">Je fais plus que ma part de travail.<br/>
-							<input type="number" id="q8c" data-ng-model="answers[7][2]" min="0" max="20" placeholder="0">J'attends beaucoup des autres et de leurs performances.<br/>
-							<input type="number" id="q8d" data-ng-model="answers[7][3]" min="0" max="20" placeholder="0">J'aime être dans un endroit tranquille pour travailler.<br/>
-							<input type="number" id="q8e" data-ng-model="answers[7][4]" min="0" max="20" placeholder="0">La routine et les règles m'ennuient.<br/>
-							<input type="number" id="q8f" data-ng-model="answers[7][5]" min="0" max="20" placeholder="0">Je me dis que je peux vendre n'importe quoi à n'importe qui.
-						</div>
-					</div>
-				</fieldset>
-				<fieldset>
-					<legend>Q9 &mdash; Lorsque j'ai des problèmes dans mon travail, j'ai tendance à :</legend>
-					<div data-ng-show="error[8]" class="text-danger">
-						<strong data-ng-bind="error[8]"></strong>
-					</div>
-					<div class="form-group">
-						<div class="controls">
-							<input type="number" id="q9a" data-ng-model="answers[8][0]" min="0" max="20" placeholder="0">Me dire que je n'ai pas fait suffisamment pour les autres et à me culpabiliser.<br/>
-							<input type="number" id="q9b" data-ng-model="answers[8][1]" min="0" max="20" placeholder="0">Penser que je ne suis pas suffisament organisé/e et que je n'ai pas assez anticipé.<br/>
-							<input type="number" id="q9c" data-ng-model="answers[8][2]" min="0" max="20" placeholder="0">Être convaincu/e que les autres n'ont qu'à réfléchir et qu'ainsi ils comprendraient que c'est moi qui ai raison.<br/>
-							<input type="number" id="q9d" data-ng-model="answers[8][3]" min="0" max="20" placeholder="0">Me replier sur moi-même.<br/>
-							<input type="number" id="q9e" data-ng-model="answers[8][4]" min="0" max="20" placeholder="0">Ne pas accepter que les autres soient mécontents et avoir envie de les envoyer &laquo; paitre &raquo;.<br/>
-							<input type="number" id="q9f" data-ng-model="answers[8][5]" min="0" max="20" placeholder="0">Chercher si on n'essaie pas de me rouler.
-						</div>
-					</div>
-				</fieldset>
-				<fieldset>
-					<legend>Q10 &mdash; Je préfère :</legend>
-					<div data-ng-show="error[9]" class="text-danger">
-						<strong data-ng-bind="error[9]"></strong>
-					</div>
-					<div class="form-group">
-						<div class="controls">
-							<input type="number" id="q10a" data-ng-model="answers[9][0]" min="0" max="20" placeholder="0">L'intimité.<br/>
-							<input type="number" id="q10b" data-ng-model="answers[9][1]" min="0" max="20" placeholder="0">Les idées.<br/>
-							<input type="number" id="q10c" data-ng-model="answers[9][2]" min="0" max="20" placeholder="0">Les valeurs.<br/>
-							<input type="number" id="q10d" data-ng-model="answers[9][3]" min="0" max="20" placeholder="0">La fête.<br/>
-							<input type="number" id="q10e" data-ng-model="answers[9][4]" min="0" max="20" placeholder="0">Les sensations fortes.<br/>
-							<input type="number" id="q10f" data-ng-model="answers[9][5]" min="0" max="20" placeholder="0">Mon jardin secret.
-						</div>
-					</div>
-				</fieldset>
-				<div data-ng-show="success" class="text-success">
-					<strong data-ng-bind="success"></strong>
+					</form>
 				</div>
-				<div data-ng-show="generror" class="text-danger">
-					<strong data-ng-bind="generror"></strong>
+
+				<div data-ng-show="answer !== null && answer.length === 1">
+					<div class="alert alert-success">
+						<p>Vous avez déjà répondu à l'enquête.</p>
+					</div>
 				</div>
-				<div class="form-group" data-ng-show="! success">
-					<button type="submit" class="btn btn-primary">Envoyer mes réponses</button>
+			</div>
+
+			<div class="col-md-3">
+				<div class="panel panel-info">
+					<div class="panel-heading"><h3 class="panel-title">Informations</h3></div>
+					<div class="panel-body">
+						<dl>
+							<dt>Échéance</dt>
+							<dd>
+								<span data-ng-if="survey.end !== null" data-ng-bind="survey.end"></span>
+								<span data-ng-if="survey.end === null">Aucune</span>
+							</dd>
+						</dl>
+						<div class="pull-right"><a data-ng-href="/surveys/personality/results" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Résultats</a></div>
+					</div>
 				</div>
-			</form>
+			</div>
 		</div>
-	</div>
-	<div data-ng-show="answer !== null && answer.length > 0">
-		<p>Vous avez déjà répondu à l'enquête.</p>
 	</div>
 </section>
