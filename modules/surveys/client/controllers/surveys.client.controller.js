@@ -35,6 +35,10 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 		}
 	};
 
+	$scope.find = function() {
+		$scope.surveys = Surveys.query();
+	};
+
 	$scope.findOne = function() {
 		$scope.survey = Surveys.get({
 			surveyId: $stateParams.surveyId
