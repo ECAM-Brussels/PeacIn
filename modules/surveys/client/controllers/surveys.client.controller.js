@@ -36,6 +36,8 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 	};
 
 	$scope.findOne = function() {
+		console.log('Hello');
+		console.log($stateParams.surveyId);
 		$scope.survey = Surveys.get({
 			surveyId: $stateParams.surveyId
 		});
