@@ -17,6 +17,12 @@ var SurveySchema = new Schema({
 		unique: true,
 		required: 'Id cannot be blank.'
 	},
+	name: {
+		type: String,
+		default: '',
+		trim: true,
+		required: 'Name cannot be blank.'
+	},
 	end: {
 		type: Date,
 		default: null

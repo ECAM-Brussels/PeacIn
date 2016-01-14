@@ -36,7 +36,7 @@ exports.read = function(req, res) {
  * List of surveys
  */
 exports.list = function (req, res) {
-	Survey.find({}).exec(function (err, surveys) {
+	Survey.find({}, 'name id').exec(function (err, surveys) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
