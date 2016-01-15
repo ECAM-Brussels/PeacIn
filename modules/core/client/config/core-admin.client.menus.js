@@ -7,4 +7,11 @@ angular.module('core.admin').run(['Menus', function (Menus) {
 		type: 'dropdown',
 		roles: ['admin', 'teacher']
 	});
+
+	Menus.addMenuItem('topbar', {
+		title: 'Tableau de bord',
+		state: 'dashboard',
+		type: 'dropdown',
+		roles: ['user']
+	});
 }]);
