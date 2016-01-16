@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Module dependencies.
+ * Module dependencies
  */
 var path = require('path'),
 	mongoose = require('mongoose'),
@@ -11,24 +11,39 @@ var path = require('path'),
 /**
  * Submit a survey
  */
-exports.submit = function(req, res) {
-	var survey = new Survey(req.body);
-	survey.user = req.user;
-	survey.save(function(err) {
-		if (err) {
-			console.log(err);
-			return res.status(400).send({
-				message: 'Impossible de sauvegarder vos réponses à cette enquête.'
+exports.submit = function (req, res) {
+	// Find the survey
+	Survey.findOne({id: req.params.surveyId}, 'answers end').exec(function (err, survey) {
+		if (err || ! survey) {
+			return res.status(404).send({
+				message: 'No survey with that identifier has been found.'
 			});
 		}
-		res.jsonp(survey);
+		// TODO: check if end deadline is not passed
+		// Find if the user has already filled the survey
+//		var found = survey.answers.find(function (element, index, array) {
+//			return false;
+//		});
+//		console.log(found);
+		survey.answers.push({
+			user: req.user,
+			answer: req.body.answer
+		});
+		survey.save(function (err) {
+			if (err) {
+				return res.status(400).send({
+					message: 'Impossible de sauvegarder vos réponses à cette enquête.'
+				});
+			}
+			res.jsonp(survey);
+		});
 	});
 };
 
 /**
  * Show the current survey
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
 	res.json(req.survey);
 };
 
@@ -49,8 +64,8 @@ exports.list = function (req, res) {
 /**
  * Survey middleware
  */
-exports.surveyByID = function(req, res, next, id) {
-	Survey.findOne({id: id}, 'answers end').exec(function(err, survey) {
+exports.surveyByID = function (req, res, next, id) {
+	Survey.findOne({id: id}, 'answers end').exec(function (err, survey) {
 		if (err) {
 			return next(err);
 		}

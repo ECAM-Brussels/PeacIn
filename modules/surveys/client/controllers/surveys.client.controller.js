@@ -4,33 +4,31 @@
 angular.module('surveys').controller('SurveysController', ['$scope', '$stateParams', '$http', 'Authentication', 'Surveys', function ($scope, $stateParams, $http, Authentication, Surveys) {
 	$scope.authentication = Authentication;
 
-	$scope.submit = function(surveyId) {
-		// Check scores for every question
+	var isValid = function (answers) {
 		$scope.error = {};
 		var valid = true;
 		for (var i = 0; i < 10; i++) {
 			var sum = 0;
 			for (var j = 0; j < 6; j++) {
-				if (this.answers && this.answers[i] && this.answers[i][j]) {
-					sum += this.answers[i][j];
+				if (answers && answers[i] && answers[i][j]) {
+					sum += answers[i][j];
 				}
 			}
 			if (sum !== 20) {
-				$scope.error[i] = 'Vous n\'avez pas attribué les 20 points pour cette question.';
+				$scope.error[i] = 'Vous n\'avez pas attribué un total de 20 points pour cette question.';
 				valid = false;
 			}
 		}
+	};
+	$scope.submit = function() {
+		// Check scores for every question
 		// If data is valid, save to server
-		if (valid) {
-			var survey = new Surveys({
-				'id': surveyId,
-				'answer': JSON.stringify(this.answers),
-			});
-			// Redirect after save
-			survey.$save(function(response) {
-				$scope.success = 'Vous réponses ont bien été enregistrées.';
-			}, function(errorResponse) {
-				$scope.generror = errorResponse.data.message;
+		if (isValid(this.answers)) {
+			$http.post('/api/surveys/' + $stateParams.surveyId, {'answer': JSON.stringify(this.answers)}).then(function (response) {
+				console.log(response);
+				$scope.success = 'Vos réponses ont bien été enregistrées.'
+			}, function (response) {
+				$scope.generror = response.data.message;
 			});
 		}
 	};
