@@ -13,6 +13,10 @@ angular.module('projectmanagement').config(['$stateProvider', function ($statePr
 		url: '/teamwork',
 		templateUrl: 'modules/projectmanagement/client/views/team-work.client.view.html'
 	})
+	.state('projectmanagement.innovation', {
+		url: '/innovation',
+		templateUrl: 'modules/projectmanagement/client/views/innovation.client.view.html'
+	})
 	.state('projectmanagement.writtencommunication', {
 		url: '/writtencommunication',
 		templateUrl: 'modules/projectmanagement/client/views/written-communication.client.view.html'
@@ -20,5 +24,13 @@ angular.module('projectmanagement').config(['$stateProvider', function ($statePr
 	.state('projectmanagement.oralcommunication', {
 		url: '/oralcommunication',
 		templateUrl: 'modules/projectmanagement/client/views/oral-communication.client.view.html'
+	})
+	.state('projectmanagement.planning', {
+		url: '/planning',
+		templateUrl: 'modules/projectmanagement/client/views/planning.client.view.html'
+	})
+	.state('projectmanagement.tools', {
+		url: '/tools',
+		templateUrl: 'modules/projectmanagement/client/views/tools.client.view.html'
 	});
 }]);
