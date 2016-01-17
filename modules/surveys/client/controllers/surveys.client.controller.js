@@ -25,8 +25,7 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 		// If data is valid, save to server
 		if (isValid(this.answers)) {
 			$http.post('/api/surveys/' + $stateParams.surveyId, {'answer': JSON.stringify(this.answers)}).then(function (response) {
-				console.log(response);
-				$scope.success = 'Vos réponses ont bien été enregistrées.'
+				$scope.success = 'Vos réponses ont bien été enregistrées.';
 			}, function (response) {
 				$scope.generror = response.data.message;
 			});
@@ -38,8 +37,13 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 	};
 
 	$scope.findOne = function() {
+		$scope.answer = null;
 		$scope.survey = Surveys.get({
 			surveyId: $stateParams.surveyId
+		}, function() {
+			$scope.answer = $scope.survey.answers.find(function (element, index, array) {
+				return element.user === $scope.authentication.user._id;
+			});
 		});
 	};
 }]);
