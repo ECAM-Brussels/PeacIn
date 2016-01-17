@@ -1,0 +1,83 @@
+<section data-ng-controller="SurveysController" data-ng-init="findOne()">
+	<ol class="breadcrumb">
+		<li><a data-ng-href="/surveys">Enquêtes</a></li>
+		<li class="active"><a data-ng-href="/surveys/sociogram1">Sociogramme (1)</a></li>
+	</ol>
+
+	<h2>Sociogramme (1)</h2>
+
+	<div class="row">
+		<div class="col-md-9">
+			<div data-ng-show="! survey.$resolved || answer === null">
+				<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Chargement en cours...
+			</div>
+
+			<div data-ng-show="survey.$resolved && answer !== null && ! answer">
+				<h3>Question<img src="modules/surveys/client/img/+0-.png" alt="+0-" width="188" height="175" class="pull-right" /></h3>
+
+				<ol>
+					<li>Quel(le)s sont, parmi les autres membres du groupe, celles et ceux avec lesquel(le)s vous avez des <b>relations de travail productives (+)</b> ? Celles et deux avec lesquel(le)s vous <b>n'arrivez pas à avoir des relations de travail productives (-)</b> ? Celles et ceux avec lesquel(le)s vous <b>êtes indifférents (0)</b> ?</li>
+					<li>En ce qui concerne les relations productives, indiquez votre ordre de préférence, en donnant la première place à celle ou celui avec laquelle/lequel cela se passe le mieux.</li>
+				</ol>
+
+				<h3>Exemple</h3>
+				
+				<p>Enquête sociogramme de Roméo (groupe 200)</p>
+
+				<table class="table">
+					<tr>
+						<th></th>
+						<th>Roméo (moi)</th>
+						<th>Juliette</th>
+						<th>Émilie</th>
+						<th>Charles</th>
+						<th>Hugues</th>
+						<th>Patrick</th>
+					</tr>
+					<tr>
+						<td><b>Évaluation</b></td>
+						<td style="background-color: #eee;">+</td>
+						<td>+</td>
+						<td>-</td>
+						<td>+</td>
+						<td>-</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td><b>Classification des +</b></td>
+						<td style="background-color: #eee;">0</td>
+						<td>1</td>
+						<td></td>
+						<td>2</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+
+				<p>Mon avis : <i>&laquo; J'ai une relation de travail productive avec Juliette et Charles, je préfère Juliette à Charles. Par contre, je ne sais pas travailler avec Émilie et Hugues. &raquo;</i></p>
+			</div>
+
+			<div data-ng-show="survey.$resolved && answer !== null && answer">
+				<div class="alert alert-success">
+					<p>Vous avez déjà répondu à l'enquête le {{answer.submitted | amDateFormat:'ddd, D MMM YYYY, H:mm'}}.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="panel panel-info">
+				<div class="panel-heading"><h3 class="panel-title">Informations</h3></div>
+				<div class="panel-body">
+					<dl>
+						<dt>Échéance</dt>
+						<dd>
+							<span data-ng-if="survey.end !== null" data-ng-bind="survey.end | amDateFormat:'ddd, D MMM YYYY, H:mm'"></span>
+							<span data-ng-if="survey.end === null">Aucune</span>
+						</dd>
+					</dl>
+					<div class="pull-right"><a data-ng-href="/surveys/personality/results" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Résultats</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
