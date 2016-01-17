@@ -15,7 +15,10 @@ module.exports = {
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/angular-ui-utils/ui-utils.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-        'public/lib/angular-file-upload/angular-file-upload.js'
+        'public/lib/angular-file-upload/angular-file-upload.js',
+        'public/lib/moment/locale/fr.js',
+        'public/lib/moment/moment.js',
+        'public/lib/angular-moment/angular-moment.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

@@ -190,7 +190,7 @@
 
 			<div data-ng-show="survey.$resolved && answer !== null">
 				<div class="alert alert-success">
-					<p>Vous avez déjà répondu à l'enquête le {{answer.submitted}}.</p>
+					<p>Vous avez déjà répondu à l'enquête le {{answer.submitted | amDateFormat:'ddd, D MMM YYYY, H:mm'}}.</p>
 				</div>
 			</div>
 		</div>
@@ -202,7 +202,7 @@
 					<dl>
 						<dt>Échéance</dt>
 						<dd>
-							<span data-ng-if="survey.end !== null" data-ng-bind="survey.end"></span>
+							<span data-ng-if="survey.end !== null" data-ng-bind="survey.end | amDateFormat:'ddd, D MMM YYYY, H:mm'"></span>
 							<span data-ng-if="survey.end === null">Aucune</span>
 						</dd>
 					</dl>
