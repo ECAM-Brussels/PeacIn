@@ -7,7 +7,7 @@ var surveysPolicy = require('../policies/surveys.server.policy'),
 	surveys = require('../controllers/surveys.server.controller');
 
 module.exports = function (app) {
-	// Groups collection routes
+	// Surveys collection routes
 	app.route('/api/surveys')
 		.all(surveysPolicy.isAllowed)
 		.get(surveys.list);
