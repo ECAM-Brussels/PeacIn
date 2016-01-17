@@ -13,6 +13,8 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
 	var log = new Log(req.body);
+	log.user = req.user;
+	// Save the log entry
 	log.save(function (err) {
 		if (err) {
 			return res.status(400).send({
