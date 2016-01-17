@@ -1,5 +1,33 @@
 <section>
+	<ol class="breadcrumb">
+		<li><a ui-sref="projectmanagement.list">Gestion de projet</a></li>
+		<li class="active"><a ui-sref="projectmanagement.tools">Outils</a></li>
+	</ol>
+
 	<h2>Outils</h2>
 
-	<p>TODO...</p>
+	<div class="row">
+		<nav class="col-sm-3 col-md-3">
+			<ul class="nav nav-pills nav-stacked">
+				<li ui-sref-active="active"><a ui-sref="projectmanagement.tools.mindmap">Mindmap</a></li>
+				<li ui-sref-active="active"><a ui-sref="projectmanagement.tools.doodle">Doodle</a></li>
+				<li ui-sref-active="active"><a ui-sref="projectmanagement.tools.dropbox">Dropbox</a></li>
+				<li ui-sref-active="active"><a ui-sref="projectmanagement.tools.drive">Drive</a></li>
+				<li ui-sref-active="active"><a ui-sref="projectmanagement.tools.trello">Trello</a></li>
+			</ul>
+		</nav>
+		<div class="col-sm-9 col-md-9 settings-view">
+			<div ui-view>
+				<p>Cette section vous propose de découvrir plusieurs <em>outils en ligne</em> qui vous seront très utiles pour gérer votre travail de groupe efficacement par rapport aux différents aspects qui ont été abordés dans les différents modules présentés dans la section <em>Gestion de projet</em> de cette plateforme.</p>
+				
+				<ul>
+					<li><a ui-sref="projectmanagement.tools.mindmap">Mindmap</a> : Gestion de cartes conceptuelles.</li>
+					<li><a ui-sref="projectmanagement.tools.doodle">Doodle</a> : Trouver une date ou faire un choix.</li>
+					<li><a ui-sref="projectmanagement.tools.dropbox">Dropbox</a> : Partage de fichiers.</li>
+					<li><a ui-sref="projectmanagement.tools.drive">Drive</a> : Partage de fichiers et documents et édition collaborative en ligne.</li>
+					<li><a ui-sref="projectmanagement.tools.trello">Trello</a> : Gestion de projet (méthode Kanban).</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </section>

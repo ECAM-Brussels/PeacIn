@@ -7,12 +7,12 @@ angular.module('projectmanagement').run(['Menus', function (Menus) {
 		title: 'Gestion de projet',
 		state: 'projectmanagement',
 		type: 'dropdown',
-		roles: ['student']
+		roles: ['teacher', 'student']
 	});
 
 	// Add the dropdown team work
 	Menus.addSubMenuItem('topbar', 'projectmanagement', {
-		title: 'Travail de groupe',
+		title: 'Travail d\'équipe',
 		state: 'projectmanagement.teamwork'
 	});
 

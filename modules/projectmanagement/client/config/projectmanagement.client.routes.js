@@ -7,7 +7,14 @@ angular.module('projectmanagement').config(['$stateProvider', function ($statePr
 	.state('projectmanagement', {
 		abstract: true,
 		url: '/projectmanagement',
-		template: '<ui-view/>'
+		template: '<ui-view/>',
+		data: {
+			roles: ['teacher', 'student']
+		}
+	})
+	.state('projectmanagement.list', {
+		url: '',
+		templateUrl: 'modules/projectmanagement/client/views/list-projectmanagement.client.view.html'
 	})
 	.state('projectmanagement.teamwork', {
 		url: '/teamwork',
@@ -32,5 +39,25 @@ angular.module('projectmanagement').config(['$stateProvider', function ($statePr
 	.state('projectmanagement.tools', {
 		url: '/tools',
 		templateUrl: 'modules/projectmanagement/client/views/tools.client.view.html'
+	})
+	.state('projectmanagement.tools.mindmap', {
+		url: '/mindmap',
+		templateUrl: 'modules/projectmanagement/client/views/tools-mindmap.client.view.html'
+	})
+	.state('projectmanagement.tools.doodle', {
+		url: '/doodle',
+		templateUrl: 'modules/projectmanagement/client/views/tools-doodle.client.view.html'
+	})
+	.state('projectmanagement.tools.dropbox', {
+		url: '/dropbox',
+		templateUrl: 'modules/projectmanagement/client/views/tools-dropbox.client.view.html'
+	})
+	.state('projectmanagement.tools.drive', {
+		url: '/drive',
+		templateUrl: 'modules/projectmanagement/client/views/tools-drive.client.view.html'
+	})
+	.state('projectmanagement.tools.trello', {
+		url: '/trello',
+		templateUrl: 'modules/projectmanagement/client/views/tools-trello.client.view.html'
 	});
 }]);
