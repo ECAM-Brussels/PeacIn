@@ -23,6 +23,10 @@ var SurveySchema = new Schema({
 		trim: true,
 		required: 'Name cannot be blank.'
 	},
+	start: {
+		type: Date,
+		default: null
+	},
 	end: {
 		type: Date,
 		default: null
