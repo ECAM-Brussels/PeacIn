@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('groups').controller('GroupsController', ['$scope', '$state', '$stateParams', 'Authentication', 'Groups', function ($scope, $state, $stateParams, Authentication, Groups) {
+angular.module('groups').controller('GroupsController', ['$scope', '$state', '$stateParams', '$http', 'Authentication', 'Groups', function ($scope, $state, $stateParams, $http, Authentication, Groups) {
 	$scope.authentication = Authentication;
+	$scope.supervisorsList = [];
 
 	// Create a new group
 	$scope.create = function (isValid) {
@@ -53,4 +54,15 @@ angular.module('groups').controller('GroupsController', ['$scope', '$state', '$s
 			groupId: $stateParams.groupId
 		});
 	};
+
+	// Load list of supervisors
+	$scope.initGroupForm = function() {
+		$http.get('/api/users').success(function(data, status, headers, config) {
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].roles.indexOf('supervisor') !== -1) {
+					$scope.supervisorsList.push(data[i]);
+				}
+			}
+		});
+	}
 }]);

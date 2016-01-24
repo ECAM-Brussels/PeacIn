@@ -1,4 +1,9 @@
 <section data-ng-controller="GroupsController" data-ng-init="findOne()">
+	<ol class="breadcrumb">
+		<li><a ui-sref="admin.groups.list">Groupes</a></li>
+		<li class="active"><a ui-sref="groups.view({groupId: group._id})" data-ng-bind="group.name"></a></li>
+	</ol>
+
 	<h2 data-ng-bind="group.name"></h2>
 
 	<div class="row">
@@ -10,7 +15,7 @@
 		<hr />
 		<div class="row">
 			<div class="col-md-3"><strong>Superviseur</strong></div>
-			<div class="col-md-6" data-ng-if="group.supervisor !== null" data-ng-bind="group.supervisor"></div>
+			<div class="col-md-6" data-ng-if="group.supervisor !== null" data-ng-bind="group.supervisor.displayName"></div>
 			<div class="col-md-6" data-ng-if="group.supervisor === null">Aucun</div>
 		</div>
 		<hr />
