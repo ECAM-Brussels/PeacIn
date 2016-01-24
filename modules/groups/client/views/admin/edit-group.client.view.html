@@ -1,0 +1,35 @@
+<section data-ng-controller="GroupsController" data-ng-init="findOne()">
+	<ol class="breadcrumb">
+		<li><a ui-sref="admin.groups.list">Groupes</a></li>
+		<li class="active"><a ui-sref="groups.view({groupId: group._id})" data-ng-bind="group.name"></a></li>
+	</ol>
+
+	<h2>Éditer un groupe</h2>
+
+	<div class="col-md-12">
+		<form name="groupForm" class="form-horizontal" data-ng-submit="update(groupForm.$valid)" novalidate>
+			<fieldset>
+				<div class="form-group" show-errors>
+					<label for="name">Nom</label>
+					<input name="name" type="text" data-ng-model="group.name" id="name" class="form-control" placeholder="Nom" required>
+					<div data-ng-messages="groupForm.name.$error" role="alert">
+						<p class="help-block error-text" data-ng-message="required">Vous devez spécifier un nom au groupe.</p>
+					</div>
+				</div>
+				<div class="form-group" show-errors>
+					<label for="supervisor">Superviseur</label>
+					<input name="supervisor" type="text" data-ng-model="group.supervisor" id="supervisor" class="form-control" placeholder="Superviseur">
+					<div data-ng-messages="groupForm.supervisor.$error" role="alert">
+						<p class="help-block error-text" data-ng-message="required">Vous devez spécifier un nom au groupe.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="Mettre à jour" />
+				</div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</section>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('groups').controller('GroupsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Groups', function ($scope, $stateParams, $location, Authentication, Groups) {
+angular.module('groups').controller('GroupsController', ['$scope', '$state', '$stateParams', 'Authentication', 'Groups', function ($scope, $state, $stateParams, Authentication, Groups) {
 	$scope.authentication = Authentication;
 
 	// Create a new group
@@ -19,10 +19,29 @@ angular.module('groups').controller('GroupsController', ['$scope', '$stateParams
 
 		// Redirect after save
 		group.$save(function (response) {
-			$location.path('groups/' + response._id);
+			$state.go('groups.view', {
+				groupId: response._id
+			});
 
 			// Clear form fields
 			$scope.name = '';
+		}, function (errorResponse) {
+			$scope.error = errorResponse.data.message;
+		});
+	};
+
+	// Update a group
+	$scope.update = function (isValid) {
+		if (! isValid) {
+			$scope.$broadcast('show-errors-check-validity', 'groupForm');
+			return false;
+		}
+
+		var group = $scope.group;
+		group.$update(function() {
+			$state.go('groups.view', {
+				groupId: group._id
+			});
 		}, function (errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});

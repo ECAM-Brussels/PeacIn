@@ -13,7 +13,8 @@ module.exports = function (app) {
 
 	// Single article routes
 	app.route('/api/groups/:groupId')
-		.get(groups.read);
+		.get(groups.read)
+		.put(groups.update);
 
 	// Finish by binding the group middleware
 	app.param('groupId', groups.groupByID);

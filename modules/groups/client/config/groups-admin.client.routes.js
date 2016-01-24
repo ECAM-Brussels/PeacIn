@@ -22,5 +22,12 @@ angular.module('groups').config(['$stateProvider', function ($stateProvider) {
 		data: {
 			roles: ['admin']
 		}
+	})
+	.state('admin.groups.edit', {
+		url: '/:groupId/edit',
+		templateUrl: 'modules/groups/client/views/admin/edit-group.client.view.html',
+		data: {
+			roles: ['admin']
+		}
 	});
 }]);

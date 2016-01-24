@@ -24,6 +24,23 @@ exports.create = function (req, res) {
 };
 
 /**
+ * Update a group
+ */
+exports.update = function (req, res) {
+	var group = req.group;
+	group.name = req.body.name;
+	group.supervisor = req.body.supervisor;
+	group.save(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		res.json(group)
+	});
+};
+
+/**
  * Show the current group
  */
 exports.read = function (req, res) {
