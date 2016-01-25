@@ -17,7 +17,12 @@ h2 {
 }
 img.righticon {
 	margin-left: 20px;
-} 
+}
+div.action-box {
+	margin-bottom: 15px;
+	text-align: right;
+}
+
 .undecorated-link:hover {
 	text-decoration: none;
 }
