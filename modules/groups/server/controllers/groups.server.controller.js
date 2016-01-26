@@ -30,6 +30,7 @@ exports.update = function (req, res) {
 	var group = req.group;
 	group.name = req.body.name;
 	group.supervisor = req.body.supervisor;
+	group.members = req.body.members;
 	group.save(function (err) {
 		if (err) {
 			return res.status(400).send({
@@ -71,7 +72,7 @@ exports.groupByID = function (req, res, next, id) {
 		});
 	}
 
-	Group.findById(id, 'name supervisor members').populate('supervisor', 'displayName').exec(function (err, group) {
+	Group.findById(id, 'name supervisor members').populate('supervisor', 'displayName').populate('members', 'displayName').exec(function (err, group) {
 		if (err) {
 			return next(err);
 		}
