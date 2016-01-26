@@ -64,5 +64,5 @@ angular.module('groups').controller('GroupsController', ['$scope', '$state', '$s
 				}
 			}
 		});
-	}
+	};
 }]);
