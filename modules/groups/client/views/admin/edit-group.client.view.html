@@ -6,8 +6,6 @@
 
 	<h2>Éditer un groupe</h2>
 
-	{{students}}
-
 	<div class="col-md-12">
 		<form name="groupForm" class="form-horizontal" data-ng-submit="update(groupForm.$valid)" novalidate>
 			<fieldset>
@@ -24,8 +22,10 @@
 				</div>
 				<div class="form-group">
 					<label>Membres</label>
-					<div class="checkbox" data-ng-repeat="i in getNumber(studentsList.length) track by $index">
-						<label><input name="students[i]" type="checkbox" id="students[i]" data-ng-model="students[i]">{{studentsList[i].displayName}}</label>
+					<div class="panel panel-default" style="padding: 0 10px 10px 10px; max-height: 150px; overflow-y: scroll">
+						<div class="checkbox" data-ng-repeat="i in getNumber(studentsList.length) track by $index">
+							<label><input name="students[i]" type="checkbox" id="students[i]" data-ng-model="students[i]">{{studentsList[i].displayName}}</label>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
