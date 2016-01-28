@@ -8,6 +8,13 @@ angular.module('groups').config(['$stateProvider', function ($stateProvider) {
 		url: '/groups',
 		template: '<ui-view/>'
 	})
+	.state('groups.list', {
+		url: '',
+		templateUrl: 'modules/groups/client/views/list-groups.client.view.html',
+		data: {
+			roles: ['supervisor']
+		}
+	})
 	.state('groups.view', {
 		url: '/:groupId',
 		templateUrl: 'modules/groups/client/views/view-group.client.view.html',
