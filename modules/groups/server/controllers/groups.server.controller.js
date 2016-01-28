@@ -52,7 +52,13 @@ exports.read = function (req, res) {
  * List of groups
  */
 exports.list = function (req, res) {
-	Group.find({}).exec(function (err, groups) {
+	var options = {};
+	// If not admin or teacher, only select groups supervised by logged user
+	if (req.user.roles.indexOf('admin') === -1 && req.user.roles.indexOf('teacher') === -1) {
+		options = {supervisor: req.user};
+	}
+	// Find list of groups
+	Group.find(options).exec(function (err, groups) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

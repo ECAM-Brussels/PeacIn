@@ -11,6 +11,7 @@ angular.module('groups').config(['$stateProvider', function ($stateProvider) {
 	.state('groups.list', {
 		url: '',
 		templateUrl: 'modules/groups/client/views/list-groups.client.view.html',
+		controller: 'GroupListController',
 		data: {
 			roles: ['supervisor']
 		}
@@ -19,7 +20,7 @@ angular.module('groups').config(['$stateProvider', function ($stateProvider) {
 		url: '/:groupId',
 		templateUrl: 'modules/groups/client/views/view-group.client.view.html',
 		data: {
-			roles: ['admin', 'teacher']
+			roles: ['admin', 'teacher', 'supervisor']
 		}
 	});
 }]);

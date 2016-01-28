@@ -1,6 +1,7 @@
 <section data-ng-controller="GroupsController" data-ng-init="findOne()">
 	<ol class="breadcrumb">
-		<li><a ui-sref="admin.groups.list">Groupes</a></li>
+		<li data-ng-if="authentication.user && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user.roles.indexOf('teacher') !== -1)"><a ui-sref="admin.groups.list">Groupes</a></li>
+		<li data-ng-if="authentication.user && authentication.user.roles.indexOf('supervisor') !== -1"><a ui-sref="groups.list">Groupes</a></li>
 		<li class="active"><a ui-sref="groups.view({groupId: group._id})" data-ng-bind="group.name"></a></li>
 	</ol>
 
