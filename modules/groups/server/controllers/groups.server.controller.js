@@ -29,7 +29,7 @@ exports.create = function (req, res) {
 exports.update = function (req, res) {
 	var group = req.group;
 	group.name = req.body.name;
-	group.supervisor = req.body.supervisor;
+	group.supervisor = req.body.supervisor !== '' ? req.body.supervisor : null;
 	group.members = req.body.members;
 	group.save(function (err) {
 		if (err) {
