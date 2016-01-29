@@ -1,9 +1,9 @@
-<section>
+<section data-ng-controller="MeetingsController" data-ng-init="find()">
 	<ol class="breadcrumb">
 		<li class="active"><a ui-sref="meetings.list">Réunions</a></li>
 	</ol>
 
 	<h2>Mes réunions</h2>
 
-	<p>TODO...</p>
+	{{meetings}}
 </section>
