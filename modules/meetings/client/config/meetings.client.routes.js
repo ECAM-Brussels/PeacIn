@@ -1,0 +1,25 @@
+'use strict';
+
+// Setting up route
+angular.module('meetings').config(['$stateProvider', function ($stateProvider) {
+	$stateProvider
+	.state('meetings', {
+		abstract: true,
+		url: '/meetings',
+		template: '<ui-view/>'
+	})
+	.state('meetings.list', {
+		url: '',
+		templateUrl: 'modules/meetings/client/views/list-meetings.client.view.html',
+		data: {
+			roles: ['supervisor']
+		}
+	})
+	.state('meetings.view', {
+		url: '/:meetingId',
+		templateUrl: 'modules/meetings/client/views/view-meeting.client.view.html',
+		data: {
+			roles: ['supervisor']
+		}
+	});
+}]);
