@@ -30,6 +30,11 @@ exports.create = function (req, res) {
  */
 exports.update = function (req, res) {
 	var meeting = req.meeting;
+	if (meeting.report !== null) {
+		return res.status(400).send({
+			message: 'Un rapport a déjà été rédigé.'
+		});
+	}
 	meeting.report = req.body.report;
 	meeting.report.date = Date.now();
 	meeting.save(function (err) {
