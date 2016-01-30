@@ -37,7 +37,15 @@ angular.module('surveys').controller('MeetingsController', ['$scope', '$state', 
 
 	// Find all meetings
 	$scope.find = function() {
-		$scope.meetings = Meetings.query();
+		$scope.nextmeeting = null;
+		$scope.meetings = Meetings.query(function() {
+			for (var i = 0; i < $scope.meetings.length; i++) {
+				if (moment().isBefore(moment($scope.meetings[i].date))) {
+					$scope.nextmeeting = $scope.meetings[i].date;
+					return;
+				}
+			}
+		});
 	};
 
 	// Find all groups

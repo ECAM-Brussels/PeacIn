@@ -17,8 +17,10 @@
 				</div>
 
 				<div data-ng-if="meetings.length > 0" class="list-group">
-					<a data-ng-repeat="meeting in meetings | orderBy: 'date'" ui-sref="meetings.view({meetingId: meeting._id})" class="list-group-item">
+					<a data-ng-repeat="meeting in meetings" ui-sref="meetings.view({meetingId: meeting._id})" class="list-group-item">
 						<h4 class="list-group-item-heading" ng-bind="meeting.name"></h4>
+						<p class="list-group-item-text pull-right small" data-ng-bind="meeting.date | amDateFormat:'ddd D MMM YYYY à H:mm'"></p>
+						<p class="list-group-item-text" data-ng-bind="meeting.group.name"></p>
 					</a>
 				</div>
 
@@ -33,9 +35,9 @@
 							<dt>Nombre de réunions</dt>
 							<dd data-ng-bind="meetings.length"></dd>
 						</dl>
-						<dl>
+						<dl data-ng-if="nextmeeting !== null">
 							<dt>Prochaine réunion</dt>
-							<dd>TBD</dd>
+							<dd data-ng-bind="nextmeeting | amDateFormat:'ddd D MMM YYYY à H:mm'"></dd>
 						</dl>
 					</div>
 				</div>

@@ -25,8 +25,7 @@ var MeetingSchema = new Schema({
 		required: 'Supervisor cannot be blank.'
 	},
 	date: {
-		type: String,
-		trim: true,
+		type: Date,
 		required: 'Date cannot be blank.'
 	},
 	group: {

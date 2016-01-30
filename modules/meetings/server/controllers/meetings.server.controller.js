@@ -34,7 +34,7 @@ exports.list = function (req, res) {
 		options = {supervisor: req.user};
 	}
 	// Find list of meetings
-	Meeting.find(options).exec(function (err, meetings) {
+	Meeting.find(options).populate('group', 'name').sort({date: 1}).exec(function (err, meetings) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
