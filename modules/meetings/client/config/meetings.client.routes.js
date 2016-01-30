@@ -22,6 +22,13 @@ angular.module('meetings').config(['$stateProvider', function ($stateProvider) {
 			roles: ['supervisor']
 		}
 	})
+	.state('meetings.report', {
+		url: '/:meetingId/report',
+		templateUrl: 'modules/meetings/client/views/write-report.client.view.html',
+		data: {
+			roles: ['supervisor']
+		}
+	})
 	.state('meetings.view', {
 		url: '/:meetingId',
 		templateUrl: 'modules/meetings/client/views/view-meeting.client.view.html',

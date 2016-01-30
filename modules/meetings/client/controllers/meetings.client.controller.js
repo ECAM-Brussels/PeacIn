@@ -35,6 +35,25 @@ angular.module('surveys').controller('MeetingsController', ['$scope', '$state', 
 		});
 	};
 
+	// Save the report of a meeting
+	$scope.update = function (isValid) {
+		if (! isValid) {
+			$scope.$broadcast('show-errors-check-validity', 'reportForm');
+			return false;
+		}
+
+		var meeting = $scope.meeting;
+		meeting.report = $scope.report;
+		meeting.report.date = Date.now;
+		meeting.$update(function() {
+			$state.go('meetings.view', {
+				meetingId: meeting._id
+			});
+		}, function (errorResponse) {
+			$scope.error = errorResponse.data.message;
+		});
+	};
+
 	// Find all meetings
 	$scope.find = function() {
 		$scope.nextmeeting = null;
@@ -56,9 +75,35 @@ angular.module('surveys').controller('MeetingsController', ['$scope', '$state', 
 	};
 
 	// Find one meeting
-	$scope.findOne = function() {
+	$scope.findOne = function (initReport) {
 		$scope.meeting = Meetings.get({
 			meetingId: $stateParams.meetingId
+		}, function() {
+			// Initialise report data
+			if (initReport) {
+				$scope.report = {
+					text: '',
+					userfeedback: []
+				};
+				var members = $scope.meeting.group.members;
+				for (var i = 0; i < members.length; i++) {
+					$scope.report.userfeedback.push({
+						user: members[i]._id,
+						attended: false,
+						note: {q1: false, q2: false, q3: '--'},
+						remark: ''
+					});
+				}
+			}
 		});
+	};
+
+	// Build an array of consecutive integers from 0 to n - 1
+	$scope.getNumber = function (n) {
+		var tab = [];
+		for (var i = 0; i < n; i++) {
+			tab.push(i);
+		}
+		return tab;
 	};
 }]);

@@ -4,6 +4,7 @@
  * Module dependencies
  */
 var mongoose = require('mongoose'),
+	deepPopulate = require('mongoose-deep-populate')(mongoose),
 	Schema = mongoose.Schema;
 
 /**
@@ -50,9 +51,19 @@ var MeetingSchema = new Schema({
 						default: false
 					},
 					note: {
-						type: String,
-						enum: ['++', '+', '0', '-', '--'],
-						default: '0'
+						q1: {
+							type: Boolean,
+							default: false
+						},
+						q2: {
+							type: Boolean,
+							defaukt: false
+						},
+						q3: {
+							type: String,
+							enum: ['++', '+', '-', '--'],
+							default: '--'
+						},
 					},
 					remark: {
 						type: String,
@@ -67,6 +78,13 @@ var MeetingSchema = new Schema({
 				default: Date.now
 			}
 		}
+	}
+});
+MeetingSchema.plugin(deepPopulate, {
+	populate: {
+		'supervisor': {select: 'displayname'},
+		'group': {select: 'name members'},
+		'group.members': {select: 'displayName'}
 	}
 });
 

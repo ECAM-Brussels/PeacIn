@@ -25,6 +25,21 @@ exports.create = function (req, res) {
 	});
 };
 
+/**
+ * Update a meeting
+ */
+exports.update = function (req, res) {
+	var meeting = req.meeting;
+	meeting.report = req.body.report;
+	meeting.save(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		res.json(meeting);
+	});
+};
 
 /**
  * Show the current meeting
@@ -63,7 +78,7 @@ exports.meetingByID = function (req, res, next, id) {
 		});
 	}
 
-	Meeting.findById(id, 'name date group report').populate('group', 'name').exec(function (err, meeting) {
+	Meeting.findById(id, 'name date group report').deepPopulate('group group.members').exec(function (err, meeting) {
 		if (err) {
 			return next(err);
 		}

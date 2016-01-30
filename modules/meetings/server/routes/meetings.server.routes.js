@@ -16,7 +16,8 @@ module.exports = function (app) {
 	// Single meeting routes
 	app.route('/api/meetings/:meetingId')
 		.all(meetingsPolicy.isAllowed)
-		.get(meetings.read);
+		.get(meetings.read)
+		.put(meetings.update);
 
 	// Finish by binding the meeting middleware
 	app.param('meetingId', meetings.meetingByID);
