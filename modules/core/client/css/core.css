@@ -23,6 +23,10 @@ div.action-box {
 	text-align: right;
 }
 
+div.loading {
+	padding: 20px;
+}
+
 .undecorated-link:hover {
 	text-decoration: none;
 }
