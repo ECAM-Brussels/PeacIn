@@ -13,11 +13,40 @@
 
 		<div class="row">
 			<div class="col-md-9">
-				<div class="action-box" data-ng-if="authentication.user && authentication.user.roles.indexOf('supervisor') !== -1">
+				<div class="action-box" data-ng-if="meeting.report === null && authentication.user && authentication.user.roles.indexOf('supervisor') !== -1">
 					<a ui-sref="meetings.report({meetingId: meeting._id})" class="btn btn-success"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Rédiger le compte-rendu</a>
 				</div>
 
 				<div data-ng-if="meeting.report === null" class="alert alert-warning">Compte-rendu pas encore rédigé.</div>
+
+				<div data-ng-if="meeting.report !== null">
+					<h3>Évaluation des membres</h3>
+
+					<accordion close-others="false">
+						<accordion-group data-ng-repeat="i in getNumber(meeting.group.members.length) track by $index">
+							<accordion-heading>{{meeting.group.members[i].displayName}}</accordion-heading>
+							<div data-ng-show="! meeting.report.userfeedbacks[i].attended">Absent.</div>
+							<div data-ng-show="meeting.report.userfeedbacks[i].attended">
+								<dl>
+									<dt>Questions générales</dt>
+									<dd>
+										<p><i data-ng-if="meeting.report.userfeedbacks[i].note.q1" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></i><i data-ng-if="! meeting.report.userfeedbacks[i].note.q1" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></i> L'étudiant maîtrise bien le sujet et/ou sait parfaitement répondre aux questions qui lui sont posées (sans exception).<br>
+										<i data-ng-if="meeting.report.userfeedbacks[i].note.q2" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></i><i data-ng-if="! meeting.report.userfeedbacks[i].note.q2" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></i> L'étudiant respecte les membres de son groupe, laisse parler les autres, n'engage pas de conflit et est ouvert aux avis des autres.</p>
+									</dd>
+									<dt>L'étudiant réalise les tâches qui lui sont attribuées</dt>
+									<dd data-ng-bind="meeting.report.userfeedbacks[i].note.q3"></dd>
+									<dt>Remarques</dt>
+									<dd data-ng-if="meeting.report.userfeedbacks[i].remark !== ''" data-ng-bind="meeting.report.userfeedbacks[i].remark"></dd>
+									<dd data-ng-if="meeting.report.userfeedbacks[i].remark === ''">Aucune.</dd>
+								</dl>
+							</div>
+						</accordion-group>
+					</accordion>
+
+					<h3>Remarques générales</h3>
+					<p data-ng-if="meeting.report.text !== ''" data-ng-bind="meeting.report.text"></p>
+					<p data-ng-if="meeting.report.text === ''">Aucune.</p>
+				</div>
 			</div>
 
 			<div class="col-md-3">
@@ -29,8 +58,12 @@
 							<dd data-ng-bind="meeting.group.name"></dd>
 						</dl>
 						<dl>
-							<dt>Date</dt>
+							<dt>Date de la réunion</dt>
 							<dd data-ng-bind="meeting.date | amDateFormat:'ddd D MMM YYYY à H:mm'"></dd>
+						</dl>
+						<dl data-ng-if="meeting.report !== null">
+							<dt>Rédaction du compte-rendu</dt>
+							<dd data-ng-bind="meeting.report.date | amDateFormat:'ddd D MMM YYYY à H:mm'"></dd>
 						</dl>
 					</div>
 				</div>

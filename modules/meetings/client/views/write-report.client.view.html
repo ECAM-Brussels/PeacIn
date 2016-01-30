@@ -28,7 +28,7 @@
 						<accordion close-others="false">
 							<accordion-group data-ng-repeat="i in getNumber(meeting.group.members.length) track by $index">
 								<accordion-heading>{{meeting.group.members[i].displayName}}</accordion-heading>
-								<div data-ng-show="! report.userfeedbacks[i].attended">Étudiant absent.</div>
+								<div data-ng-show="! report.userfeedbacks[i].attended">Absent.</div>
 								<div data-ng-show="report.userfeedbacks[i].attended">
 									<div class="form-group">
 										<label>Questions générales</label>
