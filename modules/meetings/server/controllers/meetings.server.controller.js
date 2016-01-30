@@ -9,6 +9,22 @@ var path = require('path'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
+ * Create a meeting
+ */
+exports.create = function (req, res) {
+	var meeting = new Meeting(req.body);
+	meeting.supervisor = req.user;
+	meeting.save(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		res.json(meeting);
+	});
+};
+
+/**
  * List of meetings
  */
 exports.list = function (req, res) {

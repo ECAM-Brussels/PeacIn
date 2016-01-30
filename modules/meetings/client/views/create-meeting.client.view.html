@@ -1,0 +1,54 @@
+<section data-ng-controller="MeetingsController" data-ng-init="findGroups()">
+	<div data-ng-if="! groups.$resolved" class="loading">
+		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Chargement en cours...
+	</div>
+
+	<div data-ng-if="groups.$resolved">
+		<ol class="breadcrumb">
+			<li><a ui-sref="meetings.list">Réunions</a></li>
+			<li class="active"><a ui-sref="meetings.create">Créer une réunion</a></li>
+		</ol>
+
+		<h2>Créer une réunion</h2>
+
+		<div class="col-md-12">
+			<form name="meetingForm" class="form-horizontal" data-ng-submit="create(meetingForm.$valid)" novalidate>
+				<fieldset>
+					<div class="form-group" show-errors>
+						<label for="name">Nom</label>
+						<input name="name" type="text" data-ng-model="name" id="name" class="form-control" placeholder="Nom" required>
+						<div data-ng-messages="meetingForm.name.$error" role="alert">
+							<p class="help-block error-text" data-ng-message="required">Vous devez spécifier le nom de la réunion.</p>
+						</div>
+					</div>
+					<div class="form-group" show-errors>
+						<label for="date">Date</label>
+						<input name="date" type="datetime" data-ng-model="date" id="date" class="form-control" placeholder="2016/01/01 08:30" required>
+						<div data-ng-messages="meetingForm.date.$error" role="alert">
+							<p class="help-block error-text" data-ng-message="required">Vous devez spécifier une date pour la réunion.</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="supervisor">Superviseur</label>
+						<input name="supervisor" type="text" id="supervisor" class="form-control" value="{{authentication.user.displayName}}" disabled="disabled">
+					</div>
+					<div class="form-group" show-errors>
+						<label for="group">Groupe</label>
+						<select name="group" data-ng-model="group" id="group" class="form-control" required>
+							<option data-ng-repeat="group in groups | orderBy: '+name'" value="{{group._id}}" data-ng-bind="group.name"></option>
+						</select>
+						<div data-ng-messages="meetingForm.group.$error" role="alert">
+							<p class="help-block error-text" data-ng-message="required">Vous devez spécifier un groupe pour la réunion.</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary" value="Créer">
+					</div>
+					<div data-ng-show="error" class="text-danger">
+						<strong data-ng-bind="error"></strong>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</section>
