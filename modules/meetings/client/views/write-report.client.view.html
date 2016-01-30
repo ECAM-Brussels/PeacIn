@@ -19,7 +19,7 @@
 						<legend>Présence</legend>
 						<div class="form-group">
 							<div class="checkbox" data-ng-repeat="i in getNumber(meeting.group.members.length) track by $index">
-								<label><input name="attended{{i}}" type="checkbox" id="attended{{i}}" data-ng-model="report.userfeedback[i].attended">{{meeting.group.members[i].displayName}}</label>
+								<label><input name="attended{{i}}" type="checkbox" id="attended{{i}}" data-ng-model="report.userfeedbacks[i].attended">{{meeting.group.members[i].displayName}}</label>
 							</div>
 						</div>
 					</fieldset>
@@ -28,29 +28,29 @@
 						<accordion close-others="false">
 							<accordion-group data-ng-repeat="i in getNumber(meeting.group.members.length) track by $index">
 								<accordion-heading>{{meeting.group.members[i].displayName}}</accordion-heading>
-								<div data-ng-show="! report.userfeedback[i].attended">Étudiant absent.</div>
-								<div data-ng-show="report.userfeedback[i].attended">
+								<div data-ng-show="! report.userfeedbacks[i].attended">Étudiant absent.</div>
+								<div data-ng-show="report.userfeedbacks[i].attended">
 									<div class="form-group">
 										<label>Questions générales</label>
 										<div class="checkbox">
-											<label><input name="qg1{{i}}" type="checkbox" data-ng-model="report.userfeedback[i].note.q1" id="qg1{{i}}">L'étudiant maîtrise bien le sujet et/ou sait parfaitement répondre aux questions qui lui sont posées (sans exception).</label>
+											<label><input name="qg1{{i}}" type="checkbox" data-ng-model="report.userfeedbacks[i].note.q1" id="qg1{{i}}">L'étudiant maîtrise bien le sujet et/ou sait parfaitement répondre aux questions qui lui sont posées (sans exception).</label>
 										</div>
 										<div class="checkbox">
-											<label><input name="qg2{{i}}" type="checkbox" data-ng-model="report.userfeedback[i].note.q2" id="qg2{{i}}">L'étudiant respecte les membres de son groupe, laisse parler les autres, n'engage pas de conflit et est ouvert aux avis des autres.</label>
+											<label><input name="qg2{{i}}" type="checkbox" data-ng-model="report.userfeedbacks[i].note.q2" id="qg2{{i}}">L'étudiant respecte les membres de son groupe, laisse parler les autres, n'engage pas de conflit et est ouvert aux avis des autres.</label>
 										</div>
 									</div>
 									<div class="form-group">
 										<label>L'étudiant réalise les tâches qui lui sont attribuées</label>
 										<div class="radio">
-											<label><input name="qt{{i}}" type="radio" data-ng-model="report.userfeedback[i].note.q3" id="qt{{i}}1" value="++">L'étudiant est arrivé aux termes de tous les objectifs qui lui ont été fixés lors de la précédente réunion.</label>
-											<label><input name="qt{{i}}" type="radio" data-ng-model="report.userfeedback[i].note.q3" id="qt{{i}}2" value="+">L'étudiant est arrivé aux termes de la majorité des objectifs qui lui ont été fixés lors de la précédente réunion.</label>
-											<label><input name="qt{{i}}" type="radio" data-ng-model="report.userfeedback[i].note.q3" id="qt{{i}}3" value="-">L'étudiant n'est pas arrivé aux termes de la majorité des objectifs qui lui ont été fixés lors de la précédente réunion.</label>
-											<label><input name="qt{{i}}" type="radio" data-ng-model="report.userfeedback[i].note.q3" id="qt{{i}}4" value="--">L'étudiant n'a entrepris aucune démarche depuis la dernière réunion.</label>
+											<label><input name="qt{{i}}" type="radio" data-ng-model="report.userfeedbacks[i].note.q3" id="qt{{i}}1" value="++">L'étudiant est arrivé aux termes de tous les objectifs qui lui ont été fixés lors de la précédente réunion.</label>
+											<label><input name="qt{{i}}" type="radio" data-ng-model="report.userfeedbacks[i].note.q3" id="qt{{i}}2" value="+">L'étudiant est arrivé aux termes de la majorité des objectifs qui lui ont été fixés lors de la précédente réunion.</label>
+											<label><input name="qt{{i}}" type="radio" data-ng-model="report.userfeedbacks[i].note.q3" id="qt{{i}}3" value="-">L'étudiant n'est pas arrivé aux termes de la majorité des objectifs qui lui ont été fixés lors de la précédente réunion.</label>
+											<label><input name="qt{{i}}" type="radio" data-ng-model="report.userfeedbacks[i].note.q3" id="qt{{i}}4" value="--">L'étudiant n'a entrepris aucune démarche depuis la dernière réunion.</label>
 										</div>
 									</div>
 									<div class="form-group">
 										<label>Remarques</label>
-										<textarea name="rem{{i}}" data-ng-model="report.userfeedback[i].remark" id="rem{{i}}" class="form-control" placeholder="Remarques"></textarea>
+										<textarea name="rem{{i}}" data-ng-model="report.userfeedbacks[i].remark" id="rem{{i}}" class="form-control" placeholder="Remarques"></textarea>
 									</div>
 								</div>
 							</accordion-group>

@@ -31,6 +31,7 @@ exports.create = function (req, res) {
 exports.update = function (req, res) {
 	var meeting = req.meeting;
 	meeting.report = req.body.report;
+	meeting.report.date = Date.now();
 	meeting.save(function (err) {
 		if (err) {
 			return res.status(400).send({
@@ -78,7 +79,7 @@ exports.meetingByID = function (req, res, next, id) {
 		});
 	}
 
-	Meeting.findById(id, 'name date group report').deepPopulate('group group.members').exec(function (err, meeting) {
+	Meeting.findById(id, 'name date group report').deepPopulate('group group.members report.userfeedbacks.user').exec(function (err, meeting) {
 		if (err) {
 			return next(err);
 		}

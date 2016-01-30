@@ -35,13 +35,13 @@ var MeetingSchema = new Schema({
 		required: 'Group cannot be blank.'
 	},
 	report: {
-		type: {
+		type: new Schema({
 			text: {
 				type: String,
 				trim: true
 			},
 			userfeedbacks: {
-				type: [{
+				type: [new Schema({
 					user: {
 						type: Schema.ObjectId,
 						ref: 'User'
@@ -70,21 +70,28 @@ var MeetingSchema = new Schema({
 						default: '',
 						trim: true
 					}
-				}],
+				}, {
+					id: false,
+					_id: false
+				})],
 				default: []
 			},
 			date: {
 				type: Date,
 				default: Date.now
 			}
-		}
+		}, {
+			id: false,
+			_id: false
+		})
 	}
 });
 MeetingSchema.plugin(deepPopulate, {
 	populate: {
 		'supervisor': {select: 'displayname'},
 		'group': {select: 'name members'},
-		'group.members': {select: 'displayName'}
+		'group.members': {select: 'displayName'},
+		'report.userfeedbacks.user': {select: 'displayName'}
 	}
 });
 

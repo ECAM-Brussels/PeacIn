@@ -44,7 +44,6 @@ angular.module('surveys').controller('MeetingsController', ['$scope', '$state', 
 
 		var meeting = $scope.meeting;
 		meeting.report = $scope.report;
-		meeting.report.date = Date.now;
 		meeting.$update(function() {
 			$state.go('meetings.view', {
 				meetingId: meeting._id
@@ -83,11 +82,11 @@ angular.module('surveys').controller('MeetingsController', ['$scope', '$state', 
 			if (initReport) {
 				$scope.report = {
 					text: '',
-					userfeedback: []
+					userfeedbacks: []
 				};
 				var members = $scope.meeting.group.members;
 				for (var i = 0; i < members.length; i++) {
-					$scope.report.userfeedback.push({
+					$scope.report.userfeedbacks.push({
 						user: members[i]._id,
 						attended: false,
 						note: {q1: false, q2: false, q3: '--'},
