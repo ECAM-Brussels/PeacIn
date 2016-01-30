@@ -1,10 +1,36 @@
-<section>
-	<ol class="breadcrumb">
-		<li><a ui-sref="meetings.list">Réunions</a></li>
-		<li class="active"><a ui-sref="meetings.view({meetingId: meeting._id})" data-ng-bind="meeting.name"></a></li>
-	</ol>
+<section data-ng-controller="MeetingsController" data-ng-init="findOne()">
+	<div data-ng-if="! meeting.$resolved" class="loading">
+		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Chargement en cours...
+	</div>
 
-	<h2 data-ng-bind="meeting.name"></h2>
+	<div data-ng-if="meeting.$resolved">
+		<ol class="breadcrumb">
+			<li><a ui-sref="meetings.list">Réunions</a></li>
+			<li class="active"><a ui-sref="meetings.view({meetingId: meeting._id})" data-ng-bind="meeting.name"></a></li>
+		</ol>
 
-	<p>TODO...</p>
+		<h2 data-ng-bind="meeting.name"></h2>
+
+		<div class="row">
+			<div class="col-md-9">
+				<div data-ng-if="meeting.report === null" class="alert alert-warning">Compte-rendu pas encore encodé.</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="panel panel-info">
+					<div class="panel-heading"><h3 class="panel-title">Informations</h3></div>
+					<div class="panel-body">
+						<dl>
+							<dt>Groupe</dt>
+							<dd data-ng-bind="meeting.group.name"></dd>
+						</dl>
+						<dl>
+							<dt>Date</dt>
+							<dd data-ng-bind="meeting.date | amDateFormat:'ddd D MMM YYYY à H:mm'"></dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

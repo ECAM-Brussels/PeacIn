@@ -33,31 +33,40 @@ var MeetingSchema = new Schema({
 		ref: 'Group',
 		required: 'Group cannot be blank.'
 	},
-	feedback: {
-		type: [new Schema({
-			user: {
-				type: Schema.ObjectId,
-				ref: 'User'
-			},
-			attended: {
-				type: Boolean,
-				default: false
-			},
-			note: {
+	report: {
+		type: {
+			text: {
 				type: String,
-				default: '0',
 				trim: true
 			},
-			remark: {
-				type: String,
-				default: '',
-				trim: true
+			userfeedbacks: {
+				type: [{
+					user: {
+						type: Schema.ObjectId,
+						ref: 'User'
+					},
+					attended: {
+						type: Boolean,
+						default: false
+					},
+					note: {
+						type: String,
+						enum: ['++', '+', '0', '-', '--'],
+						default: '0'
+					},
+					remark: {
+						type: String,
+						default: '',
+						trim: true
+					}
+				}],
+				default: []
+			},
+			date: {
+				type: Date,
+				default: Date.now
 			}
-		}, {
-			id: false,
-			_id: false
-		})],
-		default: []
+		}
 	}
 });
 

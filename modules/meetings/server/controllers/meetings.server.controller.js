@@ -14,6 +14,7 @@ var path = require('path'),
 exports.create = function (req, res) {
 	var meeting = new Meeting(req.body);
 	meeting.supervisor = req.user;
+	meeting.report = null;
 	meeting.save(function (err) {
 		if (err) {
 			return res.status(400).send({
@@ -22,6 +23,14 @@ exports.create = function (req, res) {
 		}
 		res.json(meeting);
 	});
+};
+
+
+/**
+ * Show the current meeting
+ */
+exports.read = function (req, res) {
+	res.json(req.meeting);
 };
 
 /**
@@ -41,5 +50,29 @@ exports.list = function (req, res) {
 			});
 		}
 		res.json(meetings);
+	});
+};
+
+/**
+ * Meering middleware
+ */
+exports.meetingByID = function (req, res, next, id) {
+	if (! mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(400).send({
+			message: 'Meeting is invalid.'
+		});
+	}
+
+	Meeting.findById(id, 'name date group report').populate('group', 'name').exec(function (err, meeting) {
+		if (err) {
+			return next(err);
+		}
+		if (! meeting) {
+			return res.status(404).send({
+				message: 'No meeting with that identifier has been found.'
+			});
+		}
+	    req.meeting = meeting;
+		next();
 	});
 };

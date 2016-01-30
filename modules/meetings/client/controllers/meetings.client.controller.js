@@ -54,4 +54,11 @@ angular.module('surveys').controller('MeetingsController', ['$scope', '$state', 
 			$scope.groups = data;
 		});
 	};
+
+	// Find one meeting
+	$scope.findOne = function() {
+		$scope.meeting = Meetings.get({
+			meetingId: $stateParams.meetingId
+		});
+	};
 }]);
