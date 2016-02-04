@@ -1,7 +1,7 @@
 'use strict';
 
 // Meetings controller
-angular.module('surveys').controller('MeetingsController', ['$scope', '$state', '$stateParams', '$http', 'Authentication', 'Meetings', 'Groups', function ($scope, $state, $stateParams, $http, Authentication, Meetings, Groups) {
+angular.module('meetings').controller('MeetingsController', ['$scope', '$state', '$stateParams', '$http', 'Authentication', 'Meetings', 'Groups', function ($scope, $state, $stateParams, $http, Authentication, Meetings, Groups) {
 	$scope.authentication = Authentication;
 
 	// Create a new meeting
