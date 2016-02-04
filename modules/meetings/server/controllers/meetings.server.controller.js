@@ -82,7 +82,7 @@ exports.list = function (req, res) {
 };
 
 /**
- * Meering middleware
+ * Meeting middleware
  */
 exports.meetingByID = function (req, res, next, id) {
 	if (! mongoose.Types.ObjectId.isValid(id)) {
