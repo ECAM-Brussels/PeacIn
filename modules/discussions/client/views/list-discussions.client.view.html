@@ -1,0 +1,43 @@
+<section data-ng-controller="DiscussionsController" data-ng-init="find()">
+	<div data-ng-if="! discussions.$resolved" class="loading">
+		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Chargement en cours...
+	</div>
+
+	<div data-ng-if="discussions.$resolved">
+		<ol class="breadcrumb">
+			<li class="active"><a ui-sref="discussions.list">Discussions</a></li>
+		</ol>
+
+		<h2>Mes discussions</h2>
+
+		<div class="row">
+			<div class="col-md-9">
+				<div class="action-box" data-ng-if="authentication.user">
+					<a ui-sref="discussions.create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Créer une discussion</a>
+				</div>
+
+				<div data-ng-if="discussions.length > 0" class="list-group">
+					<a data-ng-repeat="discussion in discussions" ui-sref="discussions.view({discussionId: discussion._id})" class="list-group-item">
+						<h4 class="list-group-item-heading" ng-bind="discussion.title"></h4>
+						<p class="list-group-item-text pull-right small" data-ng-bind="discussion.date | amDateFormat:'ddd D MMM YYYY à H:mm'"></p>
+						<p class="list-group-item-text">{{discussion.title.answers}} réponses.</p>
+					</a>
+				</div>
+
+				<div data-ng-if="discussions.length === 0" class="alert alert-warning">Aucune discussion.</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="panel panel-info">
+					<div class="panel-heading"><h3 class="panel-title">Informations</h3></div>
+					<div class="panel-body">
+						<dl>
+							<dt>Nombre de discussions</dt>
+							<dd data-ng-bind="discussions.length"></dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
