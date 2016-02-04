@@ -35,8 +35,14 @@ exports.update = function (req, res) {
 			message: 'Un rapport a déjà été rédigé.'
 		});
 	}
-	meeting.report = req.body.report;
-	meeting.report.date = Date.now();
+	if (req.body.report) {
+		meeting.report = req.body.report;
+		meeting.report.date = Date.now();
+	} else {
+		meeting.name = req.body.name;
+		meeting.date = req.body.date;
+		meeting.group = req.body.group;
+	}
 	meeting.save(function (err) {
 		if (err) {
 			return res.status(400).send({

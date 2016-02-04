@@ -43,7 +43,9 @@ angular.module('surveys').controller('MeetingsController', ['$scope', '$state', 
 		}
 
 		var meeting = $scope.meeting;
-		meeting.report = $scope.report;
+		if ($scope.report) {
+			meeting.report = $scope.report;
+		}
 		meeting.$update(function() {
 			$state.go('meetings.view', {
 				meetingId: meeting._id
