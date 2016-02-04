@@ -40,6 +40,7 @@ exports.update = function (req, res) {
 		meeting.report.date = Date.now();
 	} else {
 		meeting.name = req.body.name;
+		meeting.location = req.body.location;
 		meeting.date = req.body.date;
 		meeting.group = req.body.group;
 	}
@@ -90,7 +91,7 @@ exports.meetingByID = function (req, res, next, id) {
 		});
 	}
 
-	Meeting.findById(id, 'name date group report').deepPopulate('group group.members report.userfeedbacks.user').exec(function (err, meeting) {
+	Meeting.findById(id, 'name location date group report').deepPopulate('group group.members report.userfeedbacks.user').exec(function (err, meeting) {
 		if (err) {
 			return next(err);
 		}

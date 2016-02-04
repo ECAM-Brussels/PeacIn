@@ -29,6 +29,10 @@ var MeetingSchema = new Schema({
 		type: Date,
 		required: 'Date cannot be blank.'
 	},
+	location: {
+		type: String,
+		required: 'Location cannot be blank.'
+	},
 	group: {
 		type: Schema.ObjectId,
 		ref: 'Group',

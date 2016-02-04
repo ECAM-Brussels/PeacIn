@@ -16,6 +16,7 @@ angular.module('surveys').controller('MeetingsController', ['$scope', '$state', 
 		// Create a new Meetings object
 		var meeting = new Meetings({
 			name: this.name,
+			location: this.location,
 			date: this.date,
 			group: this.group
 		});
@@ -28,6 +29,7 @@ angular.module('surveys').controller('MeetingsController', ['$scope', '$state', 
 
 			// Clear form fields
 			$scope.name = '';
+			$scope.location = '';
 			$scope.date = '';
 			$scope.group = null;
 		}, function (errorResponse) {
