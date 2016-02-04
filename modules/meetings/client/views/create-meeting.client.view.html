@@ -23,7 +23,14 @@
 					</div>
 					<div class="form-group" show-errors>
 						<label for="date">Date</label>
-						<input name="date" type="datetime" data-ng-model="date" id="date" class="form-control" placeholder="2016/01/01 08:30" required>
+						<div class="dropdown">
+							<a class="dropdown-toggle" id="dateDropdown" role="button" data-toggle="dropdown" data-target="#" href="#">
+								<div class="input-group"><input name="date" type="text" id="date" class="form-control" data-ng-model="date"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div>
+							</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dateLabel">
+								<datetimepicker data-ng-model="date" data-datetimepicker-config="{dropdownSelector: '#dateDropdown'}"></datetimepicker>
+							</ul>
+						</div>
 						<div data-ng-messages="meetingForm.date.$error" role="alert">
 							<p class="help-block error-text" data-ng-message="required">Vous devez spécifier une date pour la réunion.</p>
 						</div>
