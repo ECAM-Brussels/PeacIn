@@ -6,6 +6,8 @@
 var path = require('path'),
 	mongoose = require('mongoose'),
 	Discussion = mongoose.model('Discussion'),
+	Group = mongoose.model('Group'),
+	async = require('async'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -14,10 +16,14 @@ var path = require('path'),
 exports.create = function (req, res) {
 	var discussion = new Discussion(req.body);
 	discussion.public = req.body.visibility === 'public';
-	discussion.recipient = ['teacher'];
+	// Set up the recipients
+	discussion.recipient = [];
 	if (req.body.recipient === 'supervisor') {
 		discussion.recipient.push('supervisor');
+	} else if (req.body.recipient === 'teachers') {
+		discussion.recipient.push('teacher');
 	}
+	// Save the discussion
 	discussion.user = req.user;
 	discussion.save(function (err) {
 		if (err) {
@@ -63,23 +69,66 @@ exports.read = function (req, res) {
  * List of discussions
  */
 exports.list = function (req, res) {
-	// Find list of discussions
-	Discussion.find({}).populate('user', 'displayName').sort({created: 1}).exec(function (err, discussions) {
+	async.waterfall([
+		// Load groups if supervisor
+		function (done) {
+			if (req.user.roles.indexOf('admin') === -1 && req.user.roles.indexOf('teacher') === -1 && req.user.roles.indexOf('supervisor') !== -1) {
+				Group.find({supervisor: req.user}).exec(function (err, groups) {
+					done(err, groups);
+				});
+			} else {
+				done(null, null);
+			}
+		},
+		// Find list of discussions
+		function (groups, done) {
+			Discussion.find({}).populate('user', 'displayName').sort({created: 1}).exec(function (err, discussions) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
+				var filteredDiscussions = [];
+				for (var i = 0; i < discussions.length; i++) {
+					// If not admin, teacher or supervisor, only select discussions by logged user
+					if (req.user.roles.indexOf('admin') === -1 && req.user.roles.indexOf('teacher') === -1 && req.user.roles.indexOf('supervisor') === -1) {
+						if (discussions[i].user.id === req.user.id) {
+							filteredDiscussions.push(discussions[i]);
+						}
+					}
+					// If supervisor, only select discussions targeted to the supervisor
+					else if (req.user.roles.indexOf('admin') === -1 && req.user.roles.indexOf('teacher') === -1) {
+						if (discussions[i].recipient.indexOf('supervisor') !== -1) {
+							var found = false;
+							for (var j = 0; ! found && j < groups.length; j++) {
+								if (groups[j].members.indexOf(discussions[i].user._id) !== -1) {
+									filteredDiscussions.push(discussions[i]);
+									found = true;
+								}
+							}
+						}
+					}
+					// If teacher, only select discussions targeted to the teacher
+					else if (req.user.roles.indexOf('admin') === -1) {
+						if (discussions[i].recipient.indexOf('teacher') !== -1) {
+							filteredDiscussions.push(discussions[i]);
+						}
+					}
+					// If admin, select all the discussions
+					else if (req.user.roles.indexOf('admin') !== -1) {
+						filteredDiscussions.push(discussions[i]);
+					}
+				}
+				res.json(filteredDiscussions);
+				done(err);
+			});
+		}
+	], function (err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		}
-		var filteredDiscussions = [];
-		for (var i = 0; i < discussions.length; i++) {
-			// If not admin, teacher or supervisor, only select discussions by logged user
-			if (req.user.roles.indexOf('admin') === -1 && req.user.roles.indexOf('teacher') === -1 && req.user.roles.indexOf('supervisor') === -1) {
-				if (discussions[i].user.id === req.user.id) {
-					filteredDiscussions.push(discussions[i]);
-				}
-			}
-		}
-		res.json(filteredDiscussions);
 	});
 };
 
@@ -93,7 +142,7 @@ exports.discussionByID = function (req, res, next, id) {
 		});
 	}
 
-	Discussion.findById(id, 'title message user created answers').deepPopulate('user answers.user').exec(function (err, discussion) {
+	Discussion.findById(id, 'title message user created recipient answers').deepPopulate('user answers.user').exec(function (err, discussion) {
 		if (err) {
 			return next(err);
 		}

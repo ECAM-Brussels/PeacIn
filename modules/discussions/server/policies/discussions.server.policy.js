@@ -13,7 +13,19 @@ acl = new acl(new acl.memoryBackend());
  */
 exports.invokeRolesPolicies = function() {
 	acl.allow([{
-		roles: ['admin', 'teacher', 'supervisor', 'student'],
+		roles: ['admin', 'teacher', 'student'],
+		allows: [{
+			resources: '/api/discussions',
+			permissions: ['get']
+		}, {
+			resources: '/api/discussions/:discussionId',
+			permissions: '*'
+		}, {
+			resources: '/api/discussions/:discussionId/answer',
+			permissions: '*'
+		}]
+	}, {
+		roles: ['supervisor'],
 		allows: [{
 			resources: '/api/discussions',
 			permissions: '*'
@@ -22,7 +34,7 @@ exports.invokeRolesPolicies = function() {
 			permissions: '*'
 		}, {
 			resources: '/api/discussions/:discussionId/answer',
-			permissions: 'post'
+			permissions: '*'
 		}]
 	}]);
 };

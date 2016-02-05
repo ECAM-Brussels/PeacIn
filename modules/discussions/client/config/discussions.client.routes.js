@@ -12,7 +12,7 @@ angular.module('discussions').config(['$stateProvider', function ($stateProvider
 		url: '',
 		templateUrl: 'modules/discussions/client/views/list-discussions.client.view.html',
 		data: {
-			roles: ['teacher', 'supervisor', 'student']
+			roles: ['admin', 'teacher', 'supervisor', 'student']
 		}
 	})
 	.state('discussions.create', {
@@ -26,7 +26,7 @@ angular.module('discussions').config(['$stateProvider', function ($stateProvider
 		url: '/:discussionId',
 		templateUrl: 'modules/discussions/client/views/view-discussion.client.view.html',
 		data: {
-			roles: ['teacher', 'supervisor', 'student']
+			roles: ['admin', 'teacher', 'supervisor', 'student']
 		}
 	});
 }]);

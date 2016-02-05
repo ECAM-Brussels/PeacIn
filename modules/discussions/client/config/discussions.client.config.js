@@ -6,6 +6,6 @@ angular.module('discussions').run(['Menus', function (Menus) {
 	Menus.addSubMenuItem('topbar', 'dashboard', {
 		title: 'Discussions',
 		state: 'discussions.list',
-		roles: ['teacher', 'supervisor', 'student']
+		roles: ['admin', 'teacher', 'supervisor', 'student']
 	});
 }]);
