@@ -64,13 +64,22 @@ exports.read = function (req, res) {
  */
 exports.list = function (req, res) {
 	// Find list of discussions
-	Discussion.find({}).sort({created: 1}).exec(function (err, discussions) {
+	Discussion.find({}).populate('user', 'displayName').sort({created: 1}).exec(function (err, discussions) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		}
-		res.json(discussions);
+		var filteredDiscussions = [];
+		for (var i = 0; i < discussions.length; i++) {
+			// If not admin, teacher or supervisor, only select discussions by logged user
+			if (req.user.roles.indexOf('admin') === -1 && req.user.roles.indexOf('teacher') === -1 && req.user.roles.indexOf('supervisor') === -1) {
+				if (discussions[i].user.id === req.user.id) {
+					filteredDiscussions.push(discussions[i]);
+				}
+			}
+		}
+		res.json(filteredDiscussions);
 	});
 };
 
