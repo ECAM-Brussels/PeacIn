@@ -12,7 +12,7 @@ angular.module('meetings').config(['$stateProvider', function ($stateProvider) {
 		url: '',
 		templateUrl: 'modules/meetings/client/views/list-meetings.client.view.html',
 		data: {
-			roles: ['supervisor', 'student']
+			roles: ['admin', 'teacher', 'supervisor', 'student']
 		}
 	})
 	.state('meetings.create', {
@@ -40,7 +40,7 @@ angular.module('meetings').config(['$stateProvider', function ($stateProvider) {
 		url: '/:meetingId',
 		templateUrl: 'modules/meetings/client/views/view-meeting.client.view.html',
 		data: {
-			roles: ['supervisor']
+			roles: ['admin', 'teacher', 'supervisor']
 		}
 	});
 }]);
