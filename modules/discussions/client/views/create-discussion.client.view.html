@@ -1,0 +1,55 @@
+<section data-ng-controller="DiscussionsController">
+	<ol class="breadcrumb">
+		<li><a ui-sref="discussions.list">Discussions</a></li>
+		<li class="active"><a ui-sref="discussions.create">Créer une discussion</a></li>
+	</ol>
+
+	<h2>Créer une discussion</h2>
+
+	<div class="col-md-12">
+		<form name="discussionForm" class="form-horizontal" data-ng-submit="create(discussionForm.$valid)" novalidate>
+			<fieldset>
+				<div class="form-group" show-errors>
+					<label for="title">Titre</label>
+					<input name="title" type="text" data-ng-model="title" id="title" class="form-control" placeholder="Titre" required>
+					<div data-ng-messages="discussionForm.title.$error" role="alert">
+						<p class="help-block error-text" data-ng-message="required">Vous devez spécifier le titre de la discussion.</p>
+					</div>
+				</div>
+				<div class="form-group" show-errors>
+					<label for="visibility">Visibilité</label>
+					<select name="visibility" data-ng-model="visibility" id="visibility" class="form-control" required>
+						<option value="public">Public (tout le monde peut voir la discussion)</option>
+						<option value="private">Privé (seul le destinataire peut voir la discussion)</option>
+					</select>
+					<div data-ng-messages="discussionForm.visibility.$error" role="alert">
+						<p class="help-block error-text" data-ng-message="required">Vous devez spécifier une visibilité pour la discussion.</p>
+					</div>
+				</div>
+				<div class="form-group" show-errors>
+					<label for="recipient">Destinataire</label>
+					<select name="recipient" data-ng-model="recipient" id="recipient" class="form-control" required>
+						<option value="teachers">Équipe PI</option>
+						<option value="supervisor">Superviseur</option>
+					</select>
+					<div data-ng-messages="discussionForm.recipient.$error" role="alert">
+						<p class="help-block error-text" data-ng-message="required">Vous devez spécifier un destinataire pour la discussion.</p>
+					</div>
+				</div>
+				<div class="form-group" show-errors>
+					<label for="message">Message</label>
+					<textarea name="message" data-ng-model="message" id="message" class="form-control" placeholder="Message" rows="10" required></textarea>
+					<div data-ng-messages="discussionForm.message.$error" role="alert">
+						<p class="help-block error-text" data-ng-message="required">Vous devez spécifier un message pour la discussion.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="Créer">
+				</div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</section>

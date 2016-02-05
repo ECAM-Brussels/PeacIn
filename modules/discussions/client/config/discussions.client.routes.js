@@ -14,5 +14,19 @@ angular.module('discussions').config(['$stateProvider', function ($stateProvider
 		data: {
 			roles: ['teacher', 'supervisor', 'student']
 		}
+	})
+	.state('discussions.create', {
+		url: '/create',
+		templateUrl: 'modules/discussions/client/views/create-discussion.client.view.html',
+		data: {
+			roles: ['student']
+		}
+	})
+	.state('discussions.view', {
+		url: '/:discussionId',
+		templateUrl: 'modules/discussions/client/views/view-discussion.client.view.html',
+		data: {
+			roles: ['teacher', 'supervisor', 'student']
+		}
 	});
 }]);

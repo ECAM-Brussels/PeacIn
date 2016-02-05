@@ -8,19 +8,19 @@
 			<li class="active"><a ui-sref="discussions.list">Discussions</a></li>
 		</ol>
 
-		<h2>Mes discussions</h2>
+		<h2>Discussions</h2>
 
 		<div class="row">
 			<div class="col-md-9">
-				<div class="action-box" data-ng-if="authentication.user">
+				<div class="action-box" data-ng-if="authentication.user && authentication.user.roles.indexOf('student') !== -1">
 					<a ui-sref="discussions.create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Créer une discussion</a>
 				</div>
 
 				<div data-ng-if="discussions.length > 0" class="list-group">
 					<a data-ng-repeat="discussion in discussions" ui-sref="discussions.view({discussionId: discussion._id})" class="list-group-item">
 						<h4 class="list-group-item-heading" ng-bind="discussion.title"></h4>
-						<p class="list-group-item-text pull-right small" data-ng-bind="discussion.date | amDateFormat:'ddd D MMM YYYY à H:mm'"></p>
-						<p class="list-group-item-text">{{discussion.title.answers}} réponses.</p>
+						<p class="list-group-item-text pull-right small" data-ng-bind="discussion.created | amDateFormat:'ddd D MMM YYYY à H:mm'"></p>
+						<p class="list-group-item-text">{{discussion.answers.length}} réponses.</p>
 					</a>
 				</div>
 

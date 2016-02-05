@@ -29,12 +29,16 @@ var DiscussionSchema = new Schema({
 		trim: true,
 		required: 'Message cannot be blank.'
 	},
-	visibility: {
+	recipient: {
 		type: [{
 			type: String,
 			enum: ['teacher', 'supervisor', 'group']
 		}],
 		default: []
+	},
+	public: {
+		type: Boolean,
+		default: false
 	},
 	answers: {
 		type: [new Schema({
