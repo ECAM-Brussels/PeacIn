@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function() {
 		}, {
 			resources: '/api/discussions/:discussionId',
 			permissions: '*'
+		}, {
+			resources: '/api/discussions/:discussionId/answer',
+			permissions: 'post'
 		}]
 	}]);
 };

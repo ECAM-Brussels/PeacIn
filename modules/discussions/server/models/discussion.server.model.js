@@ -4,6 +4,7 @@
  * Module dependencies
  */
 var mongoose = require('mongoose'),
+	deepPopulate = require('mongoose-deep-populate')(mongoose),
 	Schema = mongoose.Schema;
 
 /**
@@ -61,6 +62,12 @@ var DiscussionSchema = new Schema({
 			_id: false
 		})],
 		default: []
+	}
+});
+DiscussionSchema.plugin(deepPopulate, {
+	populate: {
+		'user': {select: 'displayName'},
+		'answers.user': {select: 'displayName'}
 	}
 });
 

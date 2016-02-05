@@ -16,6 +16,30 @@
 				<div class="panel panel-default">
 					<div class="panel-body" data-ng-bind="discussion.message"></div>
 				</div>
+				<div class="panel panel-default" data-ng-repeat="i in getNumber(discussion.answers.length) track by $index">
+					<div class="panel-body">
+						<p class="pull-right small" data-ng-bind="discussion.answers[i].date | amDateFormat:'ddd D MMM YYYY à H:mm'"></p>
+						<p class="small">{{discussion.answers[i].user.displayName}} a écrit :</p>
+						<div data-ng-bind="discussion.answers[i].message"></div>
+					</div>
+				</div>
+				<form name="answerForm" data-ng-submit="answer(answerForm.$valid)" novalidate>
+					<fieldset>
+						<div class="form-group" show-errors>
+							<label for="message">Réponse</label>
+							<textarea name="message" data-ng-model="message" id="message" class="form-control" placeholder="Message" rows="5" required></textarea>
+							<div data-ng-messages="answerForm.message.$error" role="alert">
+								<p class="help-block error-text" data-ng-message="required">Vous devez spécifier un message pour la réponse.</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-primary" value="Répondre">
+						</div>
+						<div data-ng-show="error" class="text-danger">
+							<strong data-ng-bind="error"></strong>
+						</div>
+					</fieldset>
+				</form>
 			</div>
 
 			<div class="col-md-3">
@@ -29,6 +53,10 @@
 						<dl>
 							<dt>Date</dt>
 							<dd data-ng-bind="discussion.created | amDateFormat:'ddd D MMM YYYY à H:mm'"></dd>
+						</dl>
+						<dl>
+							<dt>Réponses</dt>
+							<dd data-ng-bind="discussion.answers.length"></dd>
 						</dl>
 					</div>
 				</div>

@@ -31,6 +31,28 @@ exports.create = function (req, res) {
 };
 
 /**
+ * Answer a discussion
+ */
+exports.answer = function (req, res) {
+	var answer = {
+		user: req.user,
+		date: Date.now(),
+		message: req.body.answer
+	};
+	// Add answer to discussion
+	var discussion = req.discussion;
+	discussion.answers.push(answer);
+	discussion.save(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		res.json(answer);
+	});
+};
+
+/**
  * Show the current discussion
  */
 exports.read = function (req, res) {
@@ -62,7 +84,7 @@ exports.discussionByID = function (req, res, next, id) {
 		});
 	}
 
-	Discussion.findById(id, 'title message user created answers').populate('user', 'displayName').exec(function (err, discussion) {
+	Discussion.findById(id, 'title message user created answers').deepPopulate('user answers.user').exec(function (err, discussion) {
 		if (err) {
 			return next(err);
 		}

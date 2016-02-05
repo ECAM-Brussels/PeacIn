@@ -18,6 +18,10 @@ module.exports = function (app) {
 		.all(discussionsPolicy.isAllowed)
 		.get(discussions.read);
 
+	app.route('/api/discussions/:discussionId/answer')
+		.all(discussionsPolicy.isAllowed)
+		.post(discussions.answer);
+
 	// Finish by binding the discussion middleware
 	app.param('discussionId', discussions.discussionByID);
 };

@@ -37,6 +37,25 @@ angular.module('discussions').controller('DiscussionsController', ['$scope', '$s
 		});
 	};
 
+	// Post an answer to a discussion
+	$scope.answer = function (isValid) {
+		$scope.error = null;
+
+		if (! isValid) {
+			$scope.$broadcast('show-errors-check-validity', 'answerForm');
+			return false;
+		}
+
+		$http.post('/api/discussions/' + $stateParams.discussionId + '/answer', {'answer': this.message}).then(function (response) {
+			$scope.discussion.answers.push(response.data);
+			// Clear form field
+			$scope.message = '';
+			$('#message').val('');
+		}, function (errorResponse) {
+			$scope.error = errorResponse.data.message;
+		});
+	};
+
 	// Find all discussions
 	$scope.find = function() {
 		$scope.discussions = Discussions.query();
