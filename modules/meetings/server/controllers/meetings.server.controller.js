@@ -67,17 +67,32 @@ exports.read = function (req, res) {
 exports.list = function (req, res) {
 	var options = {};
 	// If not admin or teacher, only select meetings by logged user
-	if (req.user.roles.indexOf('admin') === -1 && req.user.roles.indexOf('teacher') === -1) {
+	if (req.user.roles.indexOf('admin') === -1 && req.user.roles.indexOf('teacher') === -1 && req.user.roles.indexOf('supervisor') !== -1) {
 		options = {supervisor: req.user};
 	}
 	// Find list of meetings
-	Meeting.find(options).populate('group', 'name').sort({date: 1}).exec(function (err, meetings) {
+	Meeting.find(options).deepPopulate('group group.members').sort({date: 1}).exec(function (err, meetings) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		}
-		res.json(meetings);
+		var filteredMeetings = [];
+		for (var i = 0; i < meetings.length; i++) {
+			// If only student, only select meetings targeted to a group of the student
+			if (req.user.roles.indexOf('admin') === -1 && req.user.roles.indexOf('teacher') === -1 && req.user.roles.indexOf('supervisor') === -1) {
+				var found = false;
+				for (var j = 0; ! found && j < meetings[i].group.members.length; j++) {
+					if (meetings[i].group.members[j].id === req.user.id) {
+						filteredMeetings.push(meetings[i]);
+						found = true;
+					}
+				}
+			} else {
+				filteredMeetings.push(meetings[i]);
+			}
+		}
+		res.json(filteredMeetings);
 	});
 };
 

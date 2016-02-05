@@ -30,6 +30,12 @@ exports.invokeRolesPolicies = function() {
 			resources: '/api/meetings/:meetingId',
 			permissions: ['get']
 		}]
+	}, {
+		roles: ['student'],
+		allows: [{
+			resources: '/api/meetings',
+			permissions: ['get']
+		}]
 	}]);
 };
 

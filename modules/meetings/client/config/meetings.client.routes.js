@@ -12,7 +12,7 @@ angular.module('meetings').config(['$stateProvider', function ($stateProvider) {
 		url: '',
 		templateUrl: 'modules/meetings/client/views/list-meetings.client.view.html',
 		data: {
-			roles: ['supervisor']
+			roles: ['supervisor', 'student']
 		}
 	})
 	.state('meetings.create', {

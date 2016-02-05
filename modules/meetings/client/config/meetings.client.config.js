@@ -6,6 +6,6 @@ angular.module('meetings').run(['Menus', function (Menus) {
 	Menus.addSubMenuItem('topbar', 'dashboard', {
 		title: 'Réunions',
 		state: 'meetings.list',
-		roles: ['supervisor']
+		roles: ['supervisor', 'student']
 	});
 }]);
