@@ -60,6 +60,7 @@ angular.module('groups').controller('GroupsController', ['$scope', '$state', '$s
 		});
 	};
 	$scope.findOne = function (loadUsers) {
+		$scope.usersLoaded = false;
 		$scope.group = Groups.get({
 			groupId: $stateParams.groupId
 		}, function() {
@@ -78,6 +79,7 @@ angular.module('groups').controller('GroupsController', ['$scope', '$state', '$s
 							$scope.students.push(isMember(data[i]));
 						}
 					}
+					$scope.usersLoaded = true;
 				});
 			}
 		});

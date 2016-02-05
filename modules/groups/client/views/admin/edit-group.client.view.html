@@ -1,40 +1,46 @@
 <section data-ng-controller="GroupsController" data-ng-init="findOne(true)">
-	<ol class="breadcrumb">
-		<li><a ui-sref="admin.groups.list">Groupes</a></li>
-		<li class="active"><a ui-sref="groups.view({groupId: group._id})" data-ng-bind="group.name"></a></li>
-	</ol>
+	<div data-ng-if="! group.$resolved && ! usersLoaded" class="loading">
+		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Chargement en cours...
+	</div>
 
-	<h2>Éditer un groupe</h2>
+	<div data-ng-if="group.$resolved && usersLoaded">
+		<ol class="breadcrumb">
+			<li><a ui-sref="admin.groups.list">Groupes</a></li>
+			<li class="active"><a ui-sref="groups.view({groupId: group._id})" data-ng-bind="group.name"></a></li>
+		</ol>
 
-	<div class="col-md-12">
-		<form name="groupForm" class="form-horizontal" data-ng-submit="update(groupForm.$valid)" novalidate>
-			<fieldset>
-				<div class="form-group" show-errors>
-					<label for="name">Nom</label>
-					<input name="name" type="text" data-ng-model="group.name" id="name" class="form-control" placeholder="Nom" required>
-					<div data-ng-messages="groupForm.name.$error" role="alert">
-						<p class="help-block error-text" data-ng-message="required">Vous devez spécifier un nom au groupe.</p>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="supervisor">Superviseur</label>
-					<input name="supervisor" type="text" data-ng-model="group.supervisor" id="supervisor" class="form-control" placeholder="Superviseur" typeahead="supervisor as supervisor.displayName for supervisor in supervisorsList | filter:$viewValue | limitTo:8" autocomplete="off">
-				</div>
-				<div class="form-group">
-					<label>Membres</label>
-					<div class="panel panel-default" style="padding: 0 10px 10px 10px; max-height: 150px; overflow-y: scroll">
-						<div class="checkbox" data-ng-repeat="i in getNumber(studentsList.length) track by $index">
-							<label><input name="students[i]" type="checkbox" id="students[i]" data-ng-model="students[i]">{{studentsList[i].displayName}}</label>
+		<h2>Éditer un groupe</h2>
+
+		<div class="col-md-12">
+			<form name="groupForm" data-ng-submit="update(groupForm.$valid)" novalidate>
+				<fieldset>
+					<div class="form-group" show-errors>
+						<label for="name">Nom</label>
+						<input name="name" type="text" data-ng-model="group.name" id="name" class="form-control" placeholder="Nom" required>
+						<div data-ng-messages="groupForm.name.$error" role="alert">
+							<p class="help-block error-text" data-ng-message="required">Vous devez spécifier un nom au groupe.</p>
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<input type="submit" class="btn btn-primary" value="Mettre à jour" />
-				</div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-			</fieldset>
-		</form>
+					<div class="form-group">
+						<label for="supervisor">Superviseur</label>
+						<input name="supervisor" type="text" data-ng-model="group.supervisor" id="supervisor" class="form-control" placeholder="Superviseur" typeahead="supervisor as supervisor.displayName for supervisor in supervisorsList | filter:$viewValue | limitTo:8" autocomplete="off">
+					</div>
+					<div class="form-group">
+						<label>Membres</label>
+						<div class="panel panel-default" style="padding: 0 10px 10px 10px; max-height: 150px; overflow-y: scroll">
+							<div class="checkbox" data-ng-repeat="i in getNumber(studentsList.length) track by $index">
+								<label><input name="students[i]" type="checkbox" id="students[i]" data-ng-model="students[i]">{{studentsList[i].displayName}}</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary" value="Mettre à jour" />
+					</div>
+					<div data-ng-show="error" class="text-danger">
+						<strong data-ng-bind="error"></strong>
+					</div>
+				</fieldset>
+			</form>
+		</div>
 	</div>
 </section>

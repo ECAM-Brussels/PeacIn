@@ -1,38 +1,44 @@
 <section data-ng-controller="GroupsController" data-ng-init="findOne()">
-	<ol class="breadcrumb">
-		<li data-ng-if="authentication.user && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user.roles.indexOf('teacher') !== -1)"><a ui-sref="admin.groups.list">Groupes</a></li>
-		<li data-ng-if="authentication.user && authentication.user.roles.indexOf('supervisor') !== -1"><a ui-sref="groups.list">Groupes</a></li>
-		<li class="active"><a ui-sref="groups.view({groupId: group._id})" data-ng-bind="group.name"></a></li>
-	</ol>
-
-	<h2 data-ng-bind="group.name"></h2>
-
-	<div class="action-box" data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1">
-		<a ui-sref="admin.groups.edit({groupId: group._id})" class="btn btn-success"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Éditer le groupe</a>
+	<div data-ng-if="! group.$resolved" class="loading">
+		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Chargement en cours...
 	</div>
 
-	<div class="row">
-		<hr />
-		<div class="row">
-			<div class="col-md-3"><strong>Nom</strong></div>
-			<div class="col-md-6" data-ng-bind="group.name"></div>
+	<div data-ng-if="group.$resolved">
+		<ol class="breadcrumb">
+			<li data-ng-if="authentication.user && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user.roles.indexOf('teacher') !== -1)"><a ui-sref="admin.groups.list">Groupes</a></li>
+			<li data-ng-if="authentication.user && authentication.user.roles.indexOf('supervisor') !== -1"><a ui-sref="groups.list">Groupes</a></li>
+			<li class="active"><a ui-sref="groups.view({groupId: group._id})" data-ng-bind="group.name"></a></li>
+		</ol>
+
+		<h2 data-ng-bind="group.name"></h2>
+
+		<div class="action-box" data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1">
+			<a ui-sref="admin.groups.edit({groupId: group._id})" class="btn btn-success"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Éditer le groupe</a>
 		</div>
-		<hr />
-		<div class="row">
-			<div class="col-md-3"><strong>Superviseur</strong></div>
-			<div class="col-md-6" data-ng-if="group.supervisor !== null" data-ng-bind="group.supervisor.displayName"></div>
-			<div class="col-md-6" data-ng-if="group.supervisor === null">Aucun</div>
-		</div>
-		<hr />
-		<div class="row">
-			<div class="col-md-3"><strong>Membres</strong></div>
-			<div class="col-md-6" data-ng-if="group.members.length > 0">
-				<ul class="list-unstyled" data-ng-repeat="member in group.members">
-					<li data-ng-bind="member.displayName"></li>
-				</ul>
+
+		<div>
+			<hr />
+			<div class="row">
+				<div class="col-md-3"><strong>Nom</strong></div>
+				<div class="col-md-6" data-ng-bind="group.name"></div>
 			</div>
-			<div class="col-md-6" data-ng-if="group.members.length === 0">Aucun</div>
+			<hr />
+			<div class="row">
+				<div class="col-md-3"><strong>Superviseur</strong></div>
+				<div class="col-md-6" data-ng-if="group.supervisor !== null" data-ng-bind="group.supervisor.displayName"></div>
+				<div class="col-md-6" data-ng-if="group.supervisor === null">Aucun</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-md-3"><strong>Membres</strong></div>
+				<div class="col-md-6" data-ng-if="group.members.length > 0">
+					<ul class="list-unstyled" data-ng-repeat="member in group.members | orderBy: '+lastName'">
+						<li>{{member.firstName}} {{member.lastName}}</li>
+					</ul>
+				</div>
+				<div class="col-md-6" data-ng-if="group.members.length === 0">Aucun</div>
+			</div>
+			<hr />
 		</div>
-		<hr />
 	</div>
 </section>

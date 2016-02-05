@@ -78,7 +78,7 @@ exports.groupByID = function (req, res, next, id) {
 		});
 	}
 
-	Group.findById(id, 'name supervisor members').populate('supervisor', 'displayName').populate('members', 'displayName').exec(function (err, group) {
+	Group.findById(id, 'name supervisor members').populate('supervisor', 'displayName').populate('members', 'firstName lastName').exec(function (err, group) {
 		if (err) {
 			return next(err);
 		}
