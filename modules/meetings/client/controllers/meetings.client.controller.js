@@ -59,14 +59,24 @@ angular.module('meetings').controller('MeetingsController', ['$scope', '$state',
 
 	// Find all meetings
 	$scope.find = function() {
+		$scope.meetingsloaded = false;
 		$scope.nextmeeting = null;
+		$scope.meetingsordered = {};
 		$scope.meetings = Meetings.query(function() {
 			for (var i = 0; i < $scope.meetings.length; i++) {
 				if (moment().isBefore(moment($scope.meetings[i].date))) {
 					$scope.nextmeeting = $scope.meetings[i].date;
-					return;
+					break;
 				}
 			}
+			for (var j = 0; j < $scope.meetings.length; j++) {
+				var weeknb = getWeekNumber($scope.meetings[j].date);
+				if (! (weeknb in $scope.meetingsordered)) {
+					$scope.meetingsordered[weeknb] = [];
+				}
+				$scope.meetingsordered[weeknb].push($scope.meetings[j]);
+			}
+			$scope.meetingsloaded = true;
 		});
 	};
 
@@ -108,5 +118,15 @@ angular.module('meetings').controller('MeetingsController', ['$scope', '$state',
 			tab.push(i);
 		}
 		return tab;
+	};
+
+	// Get the number of the week in the year
+	var getWeekNumber = function (date) {
+		return moment(date).week();
+	};
+
+	// Get the keys of a dictionary
+	$scope.keys = function(obj) {
+		return obj ? Object.keys(obj).sort() : [];
 	};
 }]);

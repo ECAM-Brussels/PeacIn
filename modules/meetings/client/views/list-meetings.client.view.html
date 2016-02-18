@@ -1,9 +1,9 @@
 <section data-ng-controller="MeetingsController" data-ng-init="find()">
-	<div data-ng-if="! meetings.$resolved" class="loading">
+	<div data-ng-if="! meetings.$resolved || ! meetingsloaded" class="loading">
 		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Chargement en cours...
 	</div>
 
-	<div data-ng-if="meetings.$resolved">
+	<div data-ng-if="meetings.$resolved && meetingsloaded">
 		<ol class="breadcrumb">
 			<li class="active"><a ui-sref="meetings.list">Réunions</a></li>
 		</ol>
@@ -16,21 +16,26 @@
 					<a ui-sref="meetings.create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Créer une réunion</a>
 				</div>
 
-				<div data-ng-if="meetings.length > 0 && authentication.user && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user.roles.indexOf('teacher') !== -1 || authentication.user.roles.indexOf('supervisor') !== -1)" class="list-group">
-					<a data-ng-repeat="meeting in meetings" ui-sref="meetings.view({meetingId: meeting._id})" class="list-group-item">
-						<h4 class="list-group-item-heading" ng-bind="meeting.name"></h4>
-						<p class="list-group-item-text pull-right small">{{meeting.date | amDateFormat:'ddd D MMM YYYY à H:mm'}} ({{meeting.location}})</p>
-						<p class="list-group-item-text" data-ng-bind="meeting.group.name"></p>
-					</a>
-				</div>
+				<tabset data-ng-if="meetings.length > 0">
+					<tab data-ng-repeat="weeknb in keys(meetingsordered) | orderBy: '+'" heading="Semaine {{weeknb}}" active="activeState[$index]">
+						<div data-ng-if="authentication.user && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user.roles.indexOf('teacher') !== -1 || authentication.user.roles.indexOf('supervisor') !== -1)" class="list-group">
+							<a data-ng-repeat="meeting in meetingsordered[weeknb] | orderBy: '+group.name'" ui-sref="meetings.view({meetingId: meeting._id})" class="list-group-item">
+								<h4 class="list-group-item-heading" ng-bind="meeting.name"></h4>
+								<p class="list-group-item-text pull-right small">{{meeting.date | amDateFormat:'ddd D MMM YYYY à H:mm'}} ({{meeting.location}})</p>
+								<p data-ng-if="(authentication.user.roles.indexOf('admin') !== -1 || authentication.user.roles.indexOf('teacher') !== -1) && authentication.user.roles.indexOf('supervisor') === -1" class="list-group-item-text"><i>{{meeting.group.supervisor.displayName}}</i> <small>({{meeting.group.name}})</small></p>
+								<p data-ng-if="authentication.user.roles.indexOf('admin') === -1 && authentication.user.roles.indexOf('teacher') === -1 && authentication.user.roles.indexOf('supervisor') !== -1" class="list-group-item-text"><i>{{meeting.group.name}}</i></p>
+							</a>
+						</div>
 
-				<ul data-ng-if="meetings.length > 0 && authentication.user && (authentication.user.roles.indexOf('admin') === -1 && authentication.user.roles.indexOf('teacher') === -1 && authentication.user.roles.indexOf('supervisor') === -1)" class="list-group">
-					<li data-ng-repeat="meeting in meetings" class="list-group-item">
-						<h4 class="list-group-item-heading" ng-bind="meeting.name"></h4>
-						<p class="list-group-item-text pull-right small">{{meeting.date | amDateFormat:'ddd D MMM YYYY à H:mm'}} ({{meeting.location}})</p>
-						<p class="list-group-item-text" data-ng-bind="meeting.group.name"></p>
-					</li>
-				</ul>
+						<ul data-ng-if="authentication.user && (authentication.user.roles.indexOf('admin') === -1 && authentication.user.roles.indexOf('teacher') === -1 && authentication.user.roles.indexOf('supervisor') === -1)" class="list-group">
+							<li data-ng-repeat="meeting in meetings" class="list-group-item">
+								<h4 class="list-group-item-heading" ng-bind="meeting.name"></h4>
+								<p class="list-group-item-text pull-right small">{{meeting.date | amDateFormat:'ddd D MMM YYYY à H:mm'}} ({{meeting.location}})</p>
+								<p class="list-group-item-text" data-ng-bind="meeting.group.name"></p>
+							</li>
+						</ul>
+					</tab>
+				</tabset>
 
 				<div data-ng-if="meetings.length === 0" class="alert alert-warning">Aucune réunion.</div>
 			</div>

@@ -93,7 +93,8 @@ var MeetingSchema = new Schema({
 MeetingSchema.plugin(deepPopulate, {
 	populate: {
 		'supervisor': {select: 'displayName'},
-		'group': {select: 'name members'},
+		'group': {select: 'name members supervisor'},
+		'group.supervisor': {select: 'displayName'},
 		'group.members': {select: 'displayName'},
 		'report.userfeedbacks.user': {select: 'displayName'}
 	}

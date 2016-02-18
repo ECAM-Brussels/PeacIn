@@ -71,7 +71,7 @@ exports.list = function (req, res) {
 		options = {supervisor: req.user};
 	}
 	// Find list of meetings
-	Meeting.find(options).deepPopulate('group group.members').sort({date: 1}).exec(function (err, meetings) {
+	Meeting.find(options, 'name date location group').deepPopulate('group group.supervisor group.members').sort({date: 1}).exec(function (err, meetings) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
