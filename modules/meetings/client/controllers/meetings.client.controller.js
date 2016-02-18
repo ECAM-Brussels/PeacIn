@@ -38,9 +38,9 @@ angular.module('meetings').controller('MeetingsController', ['$scope', '$state',
 	};
 
 	// Save the report of a meeting
-	$scope.update = function (isValid) {
+	$scope.update = function (isValid, formname) {
 		if (! isValid) {
-			$scope.$broadcast('show-errors-check-validity', 'reportForm');
+			$scope.$broadcast('show-errors-check-validity', formname);
 			return false;
 		}
 
