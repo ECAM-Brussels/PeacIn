@@ -126,7 +126,12 @@ angular.module('meetings').controller('MeetingsController', ['$scope', '$state',
 	};
 
 	// Get the keys of a dictionary
-	$scope.keys = function(obj) {
-		return obj ? Object.keys(obj).sort() : [];
+	$scope.keys = function (obj) {
+		var keys = obj ? Object.keys(obj).sort() : [];
+		var result = [];
+		for (var i = 0; i < keys.length; i++) {
+			result.push(parseInt(keys[i]));
+		}
+		return result;
 	};
 }]);
