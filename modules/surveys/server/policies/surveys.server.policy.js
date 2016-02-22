@@ -28,7 +28,7 @@ exports.invokeRolesPolicies = function() {
 			permissions: ['get', 'post']
 		}, {
 			resources: '/api/surveys/:surveyId',
-			permissions: ['get']
+			permissions: ['get', 'post']
 		}]
 	}]);
 };

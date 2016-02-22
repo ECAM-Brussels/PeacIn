@@ -13,7 +13,7 @@
 
 		<div class="row">
 			<div class="col-md-9">
-				<div data-ng-show="authentication.user && authentication.user.roles.indexOf('student') !== -1 && answer !== null && ! answer">
+				<div data-ng-show="authentication.user && authentication.user.roles.indexOf('student') !== -1 && answer !== null && ! answer && groups !== null && groups.length > 0">
 					<h3>Question<img src="modules/surveys/client/img/+0-.png" alt="+0-" width="188" height="175" class="pull-right" /></h3>
 
 					<ol>
@@ -56,6 +56,47 @@
 					</table>
 
 					<p>Mon avis : <i>&laquo; J'ai une relation de travail productive avec Juliette et Charles, je préfère Juliette à Charles. Par contre, je ne sais pas travailler avec Émilie et Hugues. &raquo;</i></p>
+
+					<h3>Ma réponse</h3>
+
+					<form data-ng-init="answers = {}" class="form-horizontal" data-ng-submit="submitSociogram()" novalidate>
+						<fieldset data-ng-repeat="group in groups | orderBy: '+name'">
+							<legend data-ng-bind="group.name"></legend>
+							<div data-ng-show="error[group._id]" class="text-danger">
+								<strong data-ng-bind="error[group._id]"></strong>
+							</div>
+							<table class="table">
+								<tr>
+									<th></th>
+									<th>{{authentication.user.displayName}} (moi)</th>
+									<th data-ng-repeat="user in group.members | orderBy: '+lastName'" data-ng-if="user._id !== authentication.user._id">{{user.displayName}}</th>
+								</tr>
+								<tr>
+									<td><b>Évaluation</b></td>
+									<th style="background-color: #eee;">+</th>
+									<td data-ng-repeat="user in group.members | orderBy: '+lastName'" data-ng-if="user._id !== authentication.user._id"><select class="form-control" data-ng-model="answers[group._id][user._id][0]" id="rel">
+										<option>+</option>
+										<option>0</option>
+										<option>-</option>
+									</select></td>
+								</tr>
+								<tr>
+									<td><b>Classification des +</b></td>
+									<td style="background-color: #eee;">0</td>
+									<td data-ng-repeat="user in group.members | orderBy: '+lastName'" data-ng-if="user._id !== authentication.user._id"><input type="number" id="rank" class="form-control" data-ng-model="answers[group._id][user._id][1]"></td>
+								</tr>
+							</table>
+						</fieldset>
+						<div data-ng-show="success" class="text-success">
+							<strong data-ng-bind="success"></strong>
+						</div>
+						<div data-ng-show="generror" class="text-danger">
+							<strong data-ng-bind="generror"></strong>
+						</div>
+						<div class="form-group" data-ng-show="! success">
+							<button type="submit" class="btn btn-primary">Envoyer mes réponses</button>
+						</div>
+					</form>
 				</div>
 
 				<div data-ng-show="authentication.user && authentication.user.roles.indexOf('student') !== -1 && survey.$resolved && answer !== null && answer">
