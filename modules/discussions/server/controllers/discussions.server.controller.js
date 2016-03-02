@@ -142,7 +142,7 @@ exports.discussionByID = function (req, res, next, id) {
 		});
 	}
 
-	Discussion.findById(id, 'title message user created recipient answers').deepPopulate('user answers.user').exec(function (err, discussion) {
+	Discussion.findById(id, 'title message user created recipient answers public').deepPopulate('user answers.user').exec(function (err, discussion) {
 		if (err) {
 			return next(err);
 		}

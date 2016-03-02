@@ -76,4 +76,13 @@ angular.module('discussions').controller('DiscussionsController', ['$scope', '$s
 		}
 		return tab;
 	};
+
+	// Format recipient in a user-friendly way
+	$scope.formatRecipient = function (recipient) {
+		switch (recipient) {
+			case 'teacher': return 'Équipe PI'
+			case 'supervisor': return 'Superviseur'
+			case 'group': return 'Groupe'
+		}
+	};
 }]);

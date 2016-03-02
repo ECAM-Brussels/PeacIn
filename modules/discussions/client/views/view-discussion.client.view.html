@@ -55,6 +55,17 @@
 							<dd data-ng-bind="discussion.created | amDateFormat:'ddd D MMM YYYY à H:mm'"></dd>
 						</dl>
 						<dl>
+							<dt>Destinataires</dt>
+							<dd><span data-ng-repeat="recipient in discussion.recipient">{{formatRecipient(recipient)}}{{$last ? '' : ', '}}</span></dd>
+						</dl>
+						<dl>
+							<dt>Visibilité</dt>
+							<dd>
+								<span data-ng-if="discussion.public">Publique</span>
+								<span data-ng-if="! discussion.public">Privée</span>
+							</dd>
+						</dl>
+						<dl>
 							<dt>Réponses</dt>
 							<dd data-ng-bind="discussion.answers.length"></dd>
 						</dl>
