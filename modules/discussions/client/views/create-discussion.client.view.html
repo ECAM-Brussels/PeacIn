@@ -30,7 +30,7 @@
 					<label for="recipient">Destinataire</label>
 					<select name="recipient" data-ng-model="recipient" id="recipient" class="form-control" required>
 						<option value="teachers">Équipe PI</option>
-						<option value="supervisor">Superviseur</option>
+						<option data-ng-if="authentication.user && authentication.user.roles.indexOf('supervisor') === -1" value="supervisor">Superviseur</option>
 					</select>
 					<div data-ng-messages="discussionForm.recipient.$error" role="alert">
 						<p class="help-block error-text" data-ng-message="required">Vous devez spécifier un destinataire pour la discussion.</p>

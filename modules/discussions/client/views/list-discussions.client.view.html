@@ -12,7 +12,7 @@
 
 		<div class="row">
 			<div class="col-md-9">
-				<div class="action-box" data-ng-if="authentication.user && authentication.user.roles.indexOf('student') !== -1">
+				<div class="action-box" data-ng-if="authentication.user && (authentication.user.roles.indexOf('student') !== -1 || authentication.user.roles.indexOf('supervisor') !== -1)">
 					<a ui-sref="discussions.create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Créer une discussion</a>
 				</div>
 
