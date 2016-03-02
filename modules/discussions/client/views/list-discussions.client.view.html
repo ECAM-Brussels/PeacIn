@@ -20,7 +20,7 @@
 					<a data-ng-repeat="discussion in discussions | orderBy: '-created'" ui-sref="discussions.view({discussionId: discussion._id})" class="list-group-item">
 						<h4 class="list-group-item-heading" ng-bind="discussion.title"></h4>
 						<p class="list-group-item-text pull-right small" data-ng-bind="discussion.created | amDateFormat:'ddd D MMM YYYY à H:mm'"></p>
-						<p class="list-group-item-text">{{discussion.answers.length}} réponses.</p>
+						<p class="list-group-item-text small">De {{discussion.user.displayName}} à <span data-ng-repeat="recipient in discussion.recipient">{{formatRecipient(recipient)}}{{$last ? '' : ', '}}</span> ({{discussion.answers.length}} réponses)</p>
 					</a>
 				</div>
 
