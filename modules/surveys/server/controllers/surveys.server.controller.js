@@ -9,6 +9,24 @@ var path = require('path'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
+ * Update a survey
+ */
+exports.update = function (req, res) {
+	var survey = req.survey;
+	survey.name = req.body.name;
+	survey.start = req.body.start;
+	survey.end = req.body.end;
+	survey.save(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		res.json(survey);
+	});
+};
+
+/**
  * Submit a survey
  */
 exports.submit = function (req, res) {
@@ -65,7 +83,7 @@ exports.list = function (req, res) {
  * Survey middleware
  */
 exports.surveyByID = function (req, res, next, id) {
-	Survey.findOne({id: id}, 'answers end').exec(function (err, survey) {
+	Survey.findOne({id: id}, 'id name answers start end').exec(function (err, survey) {
 		if (err) {
 			return next(err);
 		}

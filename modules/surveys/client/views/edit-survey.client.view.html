@@ -1,0 +1,56 @@
+<section data-ng-controller="SurveysController" data-ng-init="findOne()">
+	<div data-ng-if="! survey.$resolved" class="loading">
+		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Chargement en cours...
+	</div>
+
+	<div data-ng-if="survey.$resolved">
+		<ol class="breadcrumb">
+			<li><a data-ng-href="/surveys">Enquêtes</a></li>
+			<li class="active"><a ui-sref="surveys.view({surveyId: survey.id})" data-ng-bind="survey.name"></a></li>
+		</ol>
+
+		<h2>Éditer une enquête</h2>
+
+		<div class="col-md-12">
+			<form name="surveyForm" class="form-horizontal" data-ng-submit="update(surveyForm.$valid)" novalidate>
+				<fieldset>
+					<div class="form-group" show-errors>
+						<label for="name">Nom</label>
+						<input name="name" type="text" data-ng-model="survey.name" id="name" class="form-control" placeholder="Nom" required>
+						<div data-ng-messages="surveyForm.name.$error" role="alert">
+							<p class="help-block error-text" data-ng-message="required">Vous devez spécifier le nom de l'enquête.</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="start">Date de début</label>
+						<div class="dropdown">
+							<a class="dropdown-toggle" id="startDropdown" role="button" data-toggle="dropdown" data-target="#" href="#">
+								<div class="input-group"><input name="start" type="text" id="start" class="form-control" data-ng-model="survey.start"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div>
+							</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="startLabel">
+								<datetimepicker data-ng-model="survey.start" data-datetimepicker-config="{dropdownSelector: '#startDropdown'}"></datetimepicker>
+							</ul>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="end">Date de fin</label>
+						<div class="dropdown">
+							<a class="dropdown-toggle" id="endDropdown" role="button" data-toggle="dropdown" data-target="#" href="#">
+								<div class="input-group"><input name="end" type="text" id="end" class="form-control" data-ng-model="survey.end"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div>
+							</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="endLabel">
+								<datetimepicker data-ng-model="survey.end" data-datetimepicker-config="{dropdownSelector: '#endDropdown'}"></datetimepicker>
+							</ul>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary" value="Mettre à jour">
+					</div>
+					<div data-ng-show="error" class="text-danger">
+						<strong data-ng-bind="error"></strong>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</section>

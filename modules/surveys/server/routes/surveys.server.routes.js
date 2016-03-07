@@ -16,6 +16,7 @@ module.exports = function (app) {
 	app.route('/api/surveys/:surveyId')
 		.all(surveysPolicy.isAllowed)
 		.get(surveys.read)
+		.put(surveys.update)
 		.post(surveys.submit);
 
 	// Finish by binding the survey middleware

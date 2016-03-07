@@ -25,7 +25,7 @@ exports.invokeRolesPolicies = function() {
 		roles: ['user'],
 		allows: [{
 			resources: '/api/surveys',
-			permissions: ['get', 'post']
+			permissions: ['get']
 		}, {
 			resources: '/api/surveys/:surveyId',
 			permissions: ['get', 'post']

@@ -13,6 +13,13 @@ angular.module('surveys').config(['$stateProvider', function ($stateProvider) {
 		url: '',
 		templateUrl: 'modules/surveys/client/views/list-surveys.client.view.html'
 	})
+	.state('surveys.edit', {
+		url: '/:surveyId/edit',
+		templateUrl: 'modules/surveys/client/views/edit-survey.client.view.html',
+		data: {
+			roles: ['admin']
+		}
+	})
 	.state('surveys.view', {
 		url: '/:surveyId',
 		templateUrl: function (stateParams) {

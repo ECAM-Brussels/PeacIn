@@ -1,7 +1,7 @@
 'use strict';
 
 // Surveys controller
-angular.module('surveys').controller('SurveysController', ['$scope', '$stateParams', '$http', 'Authentication', 'Surveys', function ($scope, $stateParams, $http, Authentication, Surveys) {
+angular.module('surveys').controller('SurveysController', ['$scope', '$state', '$stateParams', '$http', 'Authentication', 'Surveys', function ($scope, $state, $stateParams, $http, Authentication, Surveys) {
 	$scope.authentication = Authentication;
 
 	var isValid = function (answers) {
@@ -85,6 +85,25 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 		}
 	};
 
+	// Update the survey
+	$scope.update = function (isValid) {
+		if (! isValid) {
+			$scope.$broadcast('show-errors-check-validity', 'surveyForm');
+			return false;
+		}
+
+		var survey = $scope.survey;
+		survey.$update({
+			surveyId: $scope.survey.id
+		}, function() {
+			$state.go('surveys.view', {
+				surveyId: survey.id
+			});
+		}, function (errorResponse) {
+			$scope.error = errorResponse.data.message;
+		});
+	};
+
 	$scope.find = function() {
 		$scope.surveys = Surveys.query();
 	};
@@ -104,5 +123,10 @@ angular.module('surveys').controller('SurveysController', ['$scope', '$statePara
 				// ...
 			});
 		});
+	};
+
+	// Test whether the specified date is after now
+	$scope.isAfter = function (date) {
+		return moment().isAfter(moment(date));
 	};
 }]);
