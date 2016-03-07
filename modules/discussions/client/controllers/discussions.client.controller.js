@@ -80,9 +80,9 @@ angular.module('discussions').controller('DiscussionsController', ['$scope', '$s
 	// Format recipient in a user-friendly way
 	$scope.formatRecipient = function (recipient) {
 		switch (recipient) {
-			case 'teacher': return 'Équipe PI'
-			case 'supervisor': return 'Superviseur'
-			case 'group': return 'Groupe'
+			case 'teacher': return 'Équipe PI';
+			case 'supervisor': return 'Superviseur';
+			case 'group': return 'Groupe';
 		}
 	};
 }]);
